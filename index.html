@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png"  href="/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="LashUp And More - Professional eyelash extensions, lamination, tinting, and removal services. Transform your look with our expert lash artists."
+    />
+    <meta
+      name="keywords"
+      content="eyelash extensions, lash lamination, lash tinting, lash removal, beauty salon, lashes"
+    />
+    <meta property="og:title" content="LashUp And More" />
+    <meta
+      property="og:description"
+      content="Professional eyelash services to make you look and feel beautiful."
+    />
+    <meta property="og:image" content="/public/images/hero/hero-model.jpg" />
+    <meta property="og:type" content="website" />
+
+    <title>LashUp And More</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lilita+One&family=Qwitcher+Grypen:wght@400;700&family=Rajdhani:wght@300;400;500;600;700&family=Rubik+Gemstones&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #ec4899;
+        border-radius: 3px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #db2777;
+      }
+
+      /* Dark mode scrollbar */
+      .dark ::-webkit-scrollbar-track {
+        background: #1f2937;
+      }
+
+      /* Loading screen */
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+
+      .loading-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* Smooth focus outline */
+      *:focus {
+        outline: 2px solid #ec4899;
+        outline-offset: 2px;
+      }
+
+      /* Selection color */
+      ::selection {
+        background-color: #ec4899;
+        color: white;
+      }
+    </style>
+  </head>
+  <body
+    class="font-inter antialiased bg-white dark:bg-charcoal-900 text-charcoal-900 dark:text-white transition-colors duration-300"
+  >
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="text-center flex items-center justify-center gap-1 flex-col">
+        <div
+          class="w-16 h-16 border-4 border-primary-200 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"
+        ></div>
+        <img src="./public/images/logo.png" class="w-20 h-20 " >
+        <h2 class="text-2xl font-one text-primary-600">LashUp And More</h2>
+        <p class="text-charcoal-600 font-three">Perfect Eyelashes Loading...</p>
+      </div>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      // Hide loading screen when page is fully loaded
+      window.addEventListener("load", () => {
+        const loadingScreen = document.getElementById("loading-screen");
+        loadingScreen.classList.add("fade-out");
+        setTimeout(() => {
+          loadingScreen.style.display = "none";
+        }, 500);
+      });
+
+      // Theme detection
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+  </body>
+</html>
