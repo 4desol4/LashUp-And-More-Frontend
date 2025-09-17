@@ -51,7 +51,7 @@ const Checkout = () => {
     },
   });
 
-  const SHIPPING_FEE = 2000;
+  const SHIPPING_FEE = 10;
   const subtotal = getTotalPrice();
   const total = subtotal + SHIPPING_FEE;
 
