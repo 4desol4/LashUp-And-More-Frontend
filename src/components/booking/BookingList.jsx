@@ -1,24 +1,24 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { HiPlus, HiCalendar, HiFilter } from "react-icons/hi";
-import { bookingsAPI } from "@/services/bookings";
+import { HiCalendar, HiClock } from "react-icons/hi";
+import { useBookings } from "@/hooks/useBookings";
 import { useAuth } from "@/context/AuthContext";
-import Button from "@/components/ui/Button";
-import LoadingSpinner from "@/components/ui/Spinner";
 import BookingCard from "./BookingCard";
-import BookingForm from "./BookingForm";
-import Modal from "@/components/ui/Modal";
-import { BOOKING_STATUSES } from "@/utils/constants";
+import LoadingSpinner from "@/components/ui/Spinner";
+import Button from "@/components/ui/Button";
 import { cn } from "@/utils/helpers";
-import toast from "react-hot-toast";
 
 const BookingList = ({ isAdmin = false }) => {
-  const [bookings, setBookings] = useState([]);
   const [filteredBookings, setFilteredBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState("all");
-  const [showBookingForm, setShowBookingForm] = useState(false);
   const { isAuthenticated } = useAuth();
+  
+  const { 
+    bookings, 
+    loading, 
+    updateBookingStatus, 
+    cancelBooking 
+  } = useBookings(isAdmin);
 
   const statusFilters = [
     { id: "all", label: "All Bookings" },
@@ -28,34 +28,8 @@ const BookingList = ({ isAdmin = false }) => {
   ];
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchBookings();
-    }
-  }, [isAuthenticated, isAdmin]);
-
-  useEffect(() => {
     filterBookings();
   }, [bookings, statusFilter]);
-
-  const fetchBookings = async () => {
-    try {
-      setLoading(true);
-      const response = isAdmin
-        ? await bookingsAPI.getAllBookings()
-        : await bookingsAPI.getUserBookings();
-
-      // Handle response structure - your backend returns the array directly or in a data wrapper
-      const bookingsData = Array.isArray(response.data)
-        ? response.data
-        : response;
-      setBookings(bookingsData);
-    } catch (error) {
-      console.error("Error fetching bookings:", error);
-      toast.error("Failed to load bookings");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const filterBookings = () => {
     if (statusFilter === "all") {
@@ -69,66 +43,19 @@ const BookingList = ({ isAdmin = false }) => {
 
   const handleStatusChange = async (bookingId, newStatus) => {
     try {
-      await bookingsAPI.updateBookingStatus(bookingId, newStatus);
-      setBookings(
-        bookings.map((booking) =>
-          booking.id === bookingId ? { ...booking, status: newStatus } : booking
-        )
-      );
-      toast.success("Booking status updated successfully");
+      await updateBookingStatus(bookingId, newStatus);
     } catch (error) {
       console.error("Error updating booking status:", error);
-      toast.error("Failed to update booking status");
     }
   };
 
-  const handleCancelBooking = async (bookingId) => {
-    toast(
-      (t) => (
-        <div className="flex flex-col gap-2">
-          <p>Are you sure you want to cancel this booking?</p>
-          <div className="flex gap-3">
-            <button
-              onClick={async () => {
-                toast.dismiss(t.id); 
-                try {
-                  await bookingsAPI.cancelBooking(bookingId);
-                  setBookings((prev) =>
-                    prev.map((booking) =>
-                      booking.id === bookingId
-                        ? { ...booking, status: "CANCELLED" }
-                        : booking
-                    )
-                  );
-                  toast.success("Booking cancelled successfully!");
-                } catch (error) {
-                  console.error("Error cancelling booking:", error);
-                  toast.error("Failed to cancel booking");
-                }
-              }}
-              className="px-3 py-1 bg-red-600 text-white rounded-md"
-            >
-              Yes, Cancel
-            </button>
-            <button
-              onClick={() => toast.dismiss(t.id)}
-              className="px-3 py-1 border rounded-md"
-            >
-              Keep Booking
-            </button>
-          </div>
-        </div>
-      ),
-      { duration: 5000 }
-    );
+  const handleCancelBooking = (bookingId) => {
+    if (window.confirm("Are you sure you want to cancel this booking?")) {
+      cancelBooking(bookingId);
+    }
   };
 
-  const handleBookingSuccess = () => {
-    setShowBookingForm(false);
-    fetchBookings();
-  };
-
-  if (loading) {
+  if (loading && bookings.length === 0) {
     return (
       <div className="flex justify-center py-12">
         <LoadingSpinner size="lg" />
@@ -145,21 +72,9 @@ const BookingList = ({ isAdmin = false }) => {
             {isAdmin ? "All Bookings" : "My Bookings"}
           </h2>
           <p className="text-gray-600 dark:text-gray-400 font-three">
-            {isAdmin
-              ? "Manage customer bookings"
-              : "Manage your appointment bookings"}
+            {isAdmin ? "Manage customer bookings" : "Track your appointment history"}
           </p>
         </div>
-
-        {!isAdmin && (
-          <Button
-            onClick={() => setShowBookingForm(true)}
-            className="w-full sm:w-auto font-three"
-          >
-            <HiPlus className="w-5 h-5 mr-2" />
-            New Booking
-          </Button>
-        )}
       </div>
 
       {/* Status Filters */}
@@ -178,10 +93,7 @@ const BookingList = ({ isAdmin = false }) => {
             {filter.label}
             {filter.id !== "all" && (
               <span className="ml-2 text-xs bg-white/20 px-2 py-0.5 rounded-full">
-                {
-                  bookings.filter((booking) => booking.status === filter.id)
-                    .length
-                }
+                {bookings.filter((booking) => booking.status === filter.id).length}
               </span>
             )}
           </button>
@@ -191,8 +103,7 @@ const BookingList = ({ isAdmin = false }) => {
       {/* Bookings Count */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          {filteredBookings.length} booking
-          {filteredBookings.length !== 1 ? "s" : ""} found
+          {filteredBookings.length} booking{filteredBookings.length !== 1 ? "s" : ""} found
         </p>
       </div>
 
@@ -212,15 +123,14 @@ const BookingList = ({ isAdmin = false }) => {
           <p className="text-gray-600 dark:text-gray-400 mb-6 font-three">
             {isAdmin
               ? "No bookings match the selected filter."
-              : "Book your first appointment to get started with our services."}
+              : "Book a service to see your appointments here."}
           </p>
           {!isAdmin && (
             <Button
               className="font-three"
-              onClick={() => setShowBookingForm(true)}
+              onClick={() => (window.location.href = "/services")}
             >
-              <HiPlus className="w-5 h-5 mr-2" />
-              Make Your First Booking
+              Book a Service
             </Button>
           )}
         </motion.div>
@@ -236,27 +146,12 @@ const BookingList = ({ isAdmin = false }) => {
               <BookingCard
                 booking={booking}
                 isAdmin={isAdmin}
-                onCancel={!isAdmin ? handleCancelBooking : undefined}
                 onStatusChange={isAdmin ? handleStatusChange : undefined}
+                onCancel={!isAdmin ? handleCancelBooking : undefined}
               />
             </motion.div>
           ))}
         </div>
-      )}
-
-      {/* Booking Form Modal - Only for non-admin users */}
-      {!isAdmin && (
-        <Modal
-          isOpen={showBookingForm}
-          onClose={() => setShowBookingForm(false)}
-          title="New Booking"
-          size="lg"
-        >
-          <BookingForm
-            onSuccess={handleBookingSuccess}
-            onCancel={() => setShowBookingForm(false)}
-          />
-        </Modal>
       )}
     </div>
   );

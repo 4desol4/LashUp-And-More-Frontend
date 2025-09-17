@@ -1,17 +1,19 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import ProductGrid from "@/components/products/ProductGrid";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 import { HiShoppingCart, HiX } from "react-icons/hi";
 import { formatCurrency } from "@/utils/formatters";
 import { ANIMATION_VARIANTS } from "@/utils/constants";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
-import { ordersAPI } from "@/services/orders";
-import toast from "react-hot-toast";
+
 const Shop = () => {
   const { items, updateQuantity, removeItem, getTotalPrice, itemCount } =
     useCart();
+  const { isAuthenticated } = useAuth();
 
   return (
     <div className="min-h-screen pt-20">
@@ -121,28 +123,43 @@ const Shop = () => {
                     <div className="border-t border-gray-200 dark:border-charcoal-600 pt-4">
                       <div className="flex justify-between items-center mb-4">
                         <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                          Total
+                          Subtotal
                         </span>
                         <span className="text-lg font-bold text-primary-600">
                           {formatCurrency(getTotalPrice())}
                         </span>
                       </div>
 
-                      <Button
-                        onClick={async () => {
-                          try {
-                            await ordersAPI.createBulkOrder(items);
-                            toast.success(
-                              " All products ordered successfully!"
-                            );
-                          } catch (err) {
-                            console.error(err);
-                            toast.error("Failed to order products");
-                          }
-                        }}
-                      >
-                        Order Products
-                      </Button>
+                      {/* Checkout Button */}
+                      {isAuthenticated ? (
+                        <Link to="/checkout">
+                          <Button className="w-full font-three">
+                            Proceed to Checkout
+                          </Button>
+                        </Link>
+                      ) : (
+                        <div className="space-y-2">
+                          <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+                            Please login to checkout
+                          </p>
+                          <Button
+                            className="w-full font-three"
+                            onClick={() => {
+                              // This will be handled by AuthModal in Header
+                              const loginButton = document.querySelector(
+                                '[data-auth="login"]'
+                              );
+                              if (loginButton) loginButton.click();
+                            }}
+                          >
+                            Login to Continue
+                          </Button>
+                        </div>
+                      )}
+
+                      <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
+                        Shipping calculated at checkout
+                      </p>
                     </div>
                   </div>
                 )}

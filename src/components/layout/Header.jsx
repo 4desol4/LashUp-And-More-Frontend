@@ -84,7 +84,6 @@ const Header = () => {
     setShowUserMenu(false);
   };
 
-  
   const isMobileLayout = windowWidth <= 1024;
 
   return (
@@ -100,7 +99,6 @@ const Header = () => {
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 sm:h-16 md:h-20">
-         
           <Link
             to="/"
             className="flex items-center space-x-2 group flex-shrink-0"
@@ -109,11 +107,10 @@ const Header = () => {
               whileHover={{ scale: 1.05 }}
               className="text-2xl md:text-3xl font-four font-bold text-gradient"
             >
-              LashUp And More
+              LashUpAndMore
             </motion.div>
           </Link>
 
-          
           <nav className="hidden lg:flex items-center font-three space-x-6 2xl:space-x-8">
             {navigation.map((item) => (
               <Link
@@ -123,7 +120,9 @@ const Header = () => {
                   "relative px-2 2xl:px-3 py-2 font-medium text-base 2xl:text-lg transition-colors duration-200 whitespace-nowrap",
                   location.pathname === item.href
                     ? "text-primary-600 dark:text-primary-400"
-                    : "text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                    : `text-gray-500  dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 ${
+                        isScrolled ? "text-gray-700" : "text-gray-500"
+                      }`
                 )}
               >
                 {item.name}
@@ -137,14 +136,11 @@ const Header = () => {
             ))}
           </nav>
 
-          
           <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 font-three text-sm md:text-base">
-          
             <div className="flex-shrink-0">
               <ThemeToggle />
             </div>
 
-            
             <Link
               to="/shop"
               className="relative p-1.5 sm:p-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex-shrink-0"
@@ -161,7 +157,6 @@ const Header = () => {
               )}
             </Link>
 
-           
             {isAuthenticated ? (
               <div className="relative user-menu-container flex-shrink-0">
                 <button
@@ -218,7 +213,6 @@ const Header = () => {
                 </AnimatePresence>
               </div>
             ) : (
-              
               <div className="hidden lg:flex items-center text-sm md:text-base space-x-2 md:space-x-3">
                 <Button
                   variant="ghost"
@@ -244,7 +238,6 @@ const Header = () => {
               </div>
             )}
 
-            
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="lg:hidden p-1.5 sm:p-2 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors mobile-menu-container flex-shrink-0"
@@ -287,7 +280,6 @@ const Header = () => {
                   </Link>
                 ))}
 
-                
                 {!isAuthenticated && (
                   <>
                     <hr className="my-3 border-gray-200 dark:border-charcoal-600 mx-2" />
@@ -315,7 +307,6 @@ const Header = () => {
                   </>
                 )}
 
-                
                 {isAuthenticated && (
                   <>
                     <hr className="my-3 border-gray-200 dark:border-charcoal-600 mx-2" />

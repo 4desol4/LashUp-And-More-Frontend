@@ -23,12 +23,12 @@ export const ThemeProvider = ({ children }) => {
 
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.content = theme === "dark" ? "#0f172a" : "#ffffff";
+      metaThemeColor.content = theme === "light" ? "#ffffff" : "#0f172a";
     }
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   };
 
   const setLightTheme = () => setTheme("light");

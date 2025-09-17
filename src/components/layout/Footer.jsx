@@ -1,61 +1,71 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { 
-  HiPhone, 
-  HiMail, 
-  HiLocationMarker,
-  HiHeart
-} from 'react-icons/hi';
-import { 
-  FaInstagram, 
-  FaFacebook, 
-  FaTwitter, 
-  FaTiktok 
-} from 'react-icons/fa';
-import { CONTACT_INFO } from '@/utils/constants';
+import React from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { HiPhone, HiMail, HiLocationMarker, HiHeart } from "react-icons/hi";
+import { FaInstagram, FaFacebook, FaTwitter, FaTiktok } from "react-icons/fa";
+import { CONTACT_INFO } from "@/utils/constants";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { name: 'Services', href: '/services' },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'Shop', href: '/shop' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: "Services", href: "/services" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "Shop", href: "/shop" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   const services = [
-    { name: 'Eyelash Extensions', href: '/services#extensions' },
-    { name: 'Lash Lamination', href: '/services#lamination' },
-    { name: 'Lash Tinting', href: '/services#tinting' },
-    { name: 'Lash Removal', href: '/services#removal' },
+    { name: "Eyelash Extensions", href: "/services#extensions" },
+    { name: "Lash Lamination", href: "/services#lamination" },
+    { name: "Lash Tinting", href: "/services#tinting" },
+    { name: "Lash Removal", href: "/services#removal" },
   ];
 
   const socialLinks = [
-    { name: 'Instagram', icon: FaInstagram, href: CONTACT_INFO.social.instagram, color: 'hover:text-pink-500' },
-    { name: 'Facebook', icon: FaFacebook, href: CONTACT_INFO.social.facebook, color: 'hover:text-blue-600' },
-    { name: 'Twitter', icon: FaTwitter, href: CONTACT_INFO.social.twitter, color: 'hover:text-blue-400' },
-    { name: 'TikTok', icon: FaTiktok, href: CONTACT_INFO.social.tiktok, color: 'hover:text-gray-900 dark:hover:text-white' },
+    {
+      name: "Instagram",
+      icon: FaInstagram,
+      href: CONTACT_INFO.social.instagram,
+      color: "hover:text-pink-500",
+    },
+    {
+      name: "Facebook",
+      icon: FaFacebook,
+      href: CONTACT_INFO.social.facebook,
+      color: "hover:text-blue-600",
+    },
+    {
+      name: "Twitter",
+      icon: FaTwitter,
+      href: CONTACT_INFO.social.twitter,
+      color: "hover:text-blue-400",
+    },
+    {
+      name: "TikTok",
+      icon: FaTiktok,
+      href: CONTACT_INFO.social.tiktok,
+      color: "hover:text-gray-900 dark:hover:text-white",
+    },
   ];
 
   return (
     <footer className="bg-gray-50 dark:bg-charcoal-800 border-t border-gray-200 dark:border-charcoal-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
           {/* Brand Section */}
           <div className="space-y-4">
             <Link to="/" className="inline-block">
               <h3 className="text-3xl font-four font-bold text-gradient">
-                LashUp And More
+                LashUpAndMore
               </h3>
             </Link>
             <p className="text-gray-600 font-three dark:text-gray-400 leading-relaxed">
-              Professional eyelash services to make you look and feel beautiful. Transform your natural beauty with our expert lash artists.
+              Professional eyelash services to make you look and feel beautiful.
+              Transform your natural beauty with our expert lash artists.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex space-x-4">
               {socialLinks.map((social) => {
@@ -127,20 +137,20 @@ const Footer = () => {
                   {CONTACT_INFO.address}
                 </p>
               </div>
-              
+
               <div className="flex items-center space-x-3">
                 <HiPhone className="w-5 h-5 text-primary-600 flex-shrink-0" />
-                <a 
+                <a
                   href={`tel:${CONTACT_INFO.phone}`}
                   className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm"
                 >
                   {CONTACT_INFO.phone}
                 </a>
               </div>
-              
+
               <div className="flex items-center space-x-3">
                 <HiMail className="w-5 h-5 text-primary-600 flex-shrink-0" />
-                <a 
+                <a
                   href={`mailto:${CONTACT_INFO.email}`}
                   className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm"
                 >
@@ -167,21 +177,23 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-charcoal-700">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-2 text-base font-three text-gray-600 dark:text-gray-400">
-              <span>© {currentYear} LashUp And More.  Made by</span>
-              <span className='text-primary-600 font-bold'><a href='https://github.com/4desol4'>4desol4</a></span>
+            <div className="flex items-center space-x-2 flex-col sm:flex-row text-base font-three text-gray-600 dark:text-gray-400">
+              <span>© {currentYear} LashUpAndMore. Made by</span>
+              <span className="text-primary-600 font-bold">
+                <a href="https://github.com/4desol4">4desol4</a>
+              </span>
               <span>in Lagos, Nigeria</span>
             </div>
-            
+
             <div className="flex items-center space-x-6 text-base font-three">
-              <Link 
-                to="/privacy" 
+              <Link
+                to="/privacy"
                 className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
                 Privacy Policy
               </Link>
-              <Link 
-                to="/terms" 
+              <Link
+                to="/terms"
                 className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
                 Terms of Service

@@ -13,29 +13,38 @@ const GalleryPreview = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
-
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 5;
   useEffect(() => {
-    let interval;
+  let interval;
 
-    const fetchGalleryItems = async () => {
-      try {
-        const response = await galleryAPI.getGalleryItems();
-        setItems(response?.data?.slice(0, 6) ?? []);
-        setError(null);
-        clearInterval(interval); // stop retry if success
-      } catch (err) {
-        console.error("Error fetching gallery items:", err);
-        setError("Server unavailable, retrying...");
-      } finally {
-        setLoading(false);
+  const fetchGalleryItems = async () => {
+    try {
+      const response = await galleryAPI.getGalleryItems();
+      setItems(response?.data?.slice(0, 6) ?? []);
+      setError(null);
+      clearInterval(interval);
+    } catch (err) {
+      console.error("Error fetching gallery items:", err);
+      if (retryCount < maxRetries) {
+        setRetryCount((prev) => prev + 1);
+        setError(
+          `Server unavailable, retrying... (${retryCount + 1}/${maxRetries})`
+        );
+      } else {
+        setError("Failed to load gallery items after multiple attempts.");
+        clearInterval(interval);
       }
-    };
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchGalleryItems();
-    interval = setInterval(fetchGalleryItems, 10000);
+  fetchGalleryItems();
+  interval = setInterval(fetchGalleryItems, 10000);
 
-    return () => clearInterval(interval);
-  }, []);
+  return () => clearInterval(interval);
+}, [retryCount]); 
 
   const handleItemClick = (item, index) => {
     setSelectedItem({ item, index, allItems: items });

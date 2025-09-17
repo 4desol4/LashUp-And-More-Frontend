@@ -106,7 +106,7 @@ const TestimonialsSection = () => {
       date: "2 weeks ago",
       rating: 5,
       review:
-        "Absolutely amazing! My lashes look so natural and beautiful. The team at LashUp And More is incredibly professional and skilled. I get compliments everywhere I go!",
+        "Absolutely amazing! My lashes look so natural and beautiful. The team at LashUpAndMore is incredibly professional and skilled. I get compliments everywhere I go!",
       clientImage:
         "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=56&h=56&fit=crop&crop=face",
     },
@@ -260,7 +260,7 @@ const TestimonialsSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             Don't just take our word for it. Here's what our amazing clients
-            have to say about their experience with LashUp And More.
+            have to say about their experience with LashUpAndMore.
           </motion.p>
         </FadeInUp>
 

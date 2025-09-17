@@ -45,7 +45,7 @@ const About = () => {
             variants={ANIMATION_VARIANTS.fadeInUp}
           >
             <h1 className="text-4xl md:text-5xl font-one text-gray-900 dark:text-white mb-6">
-              About <span className="text-gradient">LashUp And More</span>
+              About <span className="text-gradient">LashUpAndMore</span>
             </h1>
             <p className="text-xl text-gray-600 font-three dark:text-gray-400 leading-relaxed">
               Where artistry meets beauty, and every client leaves feeling confident and beautiful.
@@ -69,7 +69,7 @@ const About = () => {
               </h2>
               <div className="space-y-4 font-three text-gray-600 dark:text-gray-400 leading-relaxed">
                 <p>
-                  Founded in 2016 by Adeleye Abisade, LashUp And More began as a passion project in Lagos, Nigeria. 
+                  Founded in 2016 by Adeleye Abisade, LashUpAndMore began as a passion project in Lagos, Nigeria. 
                   What started as a small home-based business has grown into one of the most trusted lash studios in the city.
                 </p>
                 <p>
@@ -94,7 +94,7 @@ const About = () => {
             >
               <img
                 src="/images/ceo.jpeg"
-                alt="LashUp And More Studio"
+                alt="LashUpAndMore Studio"
                 className="rounded-lg shadow-lg"
               />
             </motion.div>

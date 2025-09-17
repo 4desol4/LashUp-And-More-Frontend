@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  HiCalendar,
   HiShoppingBag,
   HiUser,
   HiCog,
@@ -9,9 +8,7 @@ import {
   HiTrash,
 } from "react-icons/hi";
 import { useAuth } from "@/context/AuthContext";
-import { useBookings } from "@/hooks/useBookings";
 import { useOrders } from "@/hooks/useOrders";
-import BookingList from "@/components/booking/BookingList";
 import OrderList from "@/components/orders/OrderList";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
@@ -23,24 +20,17 @@ import {
 } from "@/components/auth/ProfileModals";
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState("bookings");
+  const [activeTab, setActiveTab] = useState("orders");
   const [modals, setModals] = useState({
     editProfile: false,
     changePassword: false,
     deleteAccount: false,
   });
 
-  const { user, logout, updateUser } = useAuth();
-  const { bookings } = useBookings();
+  const { user, logout } = useAuth();
   const { orders } = useOrders();
 
   const tabs = [
-    {
-      id: "bookings",
-      name: "My Bookings",
-      icon: HiCalendar,
-      count: bookings.length,
-    },
     {
       id: "orders",
       name: "My Orders",
@@ -54,13 +44,8 @@ const Dashboard = () => {
     },
   ];
 
+  // 📊 Orders stats
   const stats = [
-    {
-      name: "Total Bookings",
-      value: bookings.length,
-      icon: HiCalendar,
-      color: "text-blue-600 bg-blue-100 dark:bg-blue-900",
-    },
     {
       name: "Total Orders",
       value: orders.length,
@@ -68,9 +53,15 @@ const Dashboard = () => {
       color: "text-green-600 bg-green-100 dark:bg-green-900",
     },
     {
-      name: "Pending Bookings",
-      value: bookings.filter((b) => b.status === "PENDING").length,
-      icon: HiCalendar,
+      name: "Delivered",
+      value: orders.filter((o) => o.status === "DELIVERED").length,
+      icon: HiShoppingBag,
+      color: "text-blue-600 bg-blue-100 dark:bg-blue-900",
+    },
+    {
+      name: "Pending",
+      value: orders.filter((o) => o.status === "PENDING").length,
+      icon: HiShoppingBag,
       color: "text-yellow-600 bg-yellow-100 dark:bg-yellow-900",
     },
   ];
@@ -83,11 +74,8 @@ const Dashboard = () => {
     setModals((prev) => ({ ...prev, [modalName]: false }));
   };
 
-
   const renderTabContent = () => {
     switch (activeTab) {
-      case "bookings":
-        return <BookingList />;
       case "orders":
         return <OrderList />;
       case "profile":
@@ -100,7 +88,7 @@ const Dashboard = () => {
           />
         );
       default:
-        return <BookingList />;
+        return <OrderList />;
     }
   };
 
@@ -119,7 +107,7 @@ const Dashboard = () => {
                 Welcome back, {user?.name}!
               </h1>
               <p className="text-gray-600 font-three dark:text-gray-400">
-                Manage your bookings, orders, and profile
+                Manage your orders and profile
               </p>
             </div>
             <Button
@@ -167,17 +155,16 @@ const Dashboard = () => {
         {/* Navigation Tabs */}
         <div className="mb-8">
           <div className="border-b border-gray-200 dark:border-charcoal-700">
-            <nav className="-mb-px flex space-x-8 font-three">
+            <nav className="-mb-px flex space-x-8 font-three overflow-x-auto">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
-
                 return (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className={cn(
-                      "flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors",
+                      "flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors whitespace-nowrap",
                       isActive
                         ? "border-primary-500 text-primary-600 dark:text-primary-400"
                         : "border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-charcoal-600"
@@ -221,12 +208,10 @@ const Dashboard = () => {
         onClose={() => closeModal("editProfile")}
         user={user}
       />
-
       <ChangePasswordModal
         isOpen={modals.changePassword}
         onClose={() => closeModal("changePassword")}
       />
-
       <DeleteAccountModal
         isOpen={modals.deleteAccount}
         onClose={() => closeModal("deleteAccount")}
@@ -250,53 +235,15 @@ const ProfileSection = ({
             Profile Information
           </h2>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-base font-three font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Full Name
-            </label>
-            <div className="p-3 bg-gray-50 dark:bg-charcoal-700 rounded-lg">
-              <p className="text-gray-900 dark:text-white font-three">
-                {user?.name}
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-base font-three font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Email Address
-            </label>
-            <div className="p-3 bg-gray-50 dark:bg-charcoal-700 rounded-lg">
-              <p className="text-gray-900 dark:text-white font-three">
-                {user?.email}
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-base font-three font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Account Type
-            </label>
-            <div className="p-3 bg-gray-50 dark:bg-charcoal-700 rounded-lg">
-              <p className="text-gray-900 dark:text-white font-three capitalize">
-                {user?.role}
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-base font-three font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Member Since
-            </label>
-            <div className="p-3 bg-gray-50 dark:bg-charcoal-700 rounded-lg">
-              <p className="text-gray-900 dark:text-white font-three">
-                {new Date(user?.createdAt).toLocaleDateString()}
-              </p>
-            </div>
-          </div>
+          <ProfileField label="Full Name" value={user?.name} />
+          <ProfileField label="Email Address" value={user?.email} />
+          <ProfileField label="Account Type" value={user?.role} />
+          <ProfileField
+            label="Member Since"
+            value={new Date(user?.createdAt).toLocaleDateString()}
+          />
         </div>
-
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Button onClick={onEditProfile} className="font-three">
             <HiCog className="w-4 h-4 mr-2" />
@@ -322,5 +269,16 @@ const ProfileSection = ({
     </div>
   );
 };
+
+const ProfileField = ({ label, value }) => (
+  <div>
+    <label className="block text-base font-three font-medium text-gray-700 dark:text-gray-300 mb-2">
+      {label}
+    </label>
+    <div className="p-3 bg-gray-50 dark:bg-charcoal-700 rounded-lg">
+      <p className="text-gray-900 dark:text-white font-three">{value}</p>
+    </div>
+  </div>
+);
 
 export default Dashboard;

@@ -1,27 +1,30 @@
-import { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import Layout from '@/components/layout/Layout';
-import LoadingSpinner from '@/components/ui/Spinner';
-import { useAuth } from '@/context/AuthContext';
+import { Suspense, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import Layout from "@/components/layout/Layout";
+import LoadingSpinner from "@/components/ui/Spinner";
+import { useAuth } from "@/context/AuthContext";
 
-
-const Home = lazy(() => import('@/pages/Home'));
-const Services = lazy(() => import('@/pages/Services'));
-const Gallery = lazy(() => import('@/pages/Gallery'));
-const Shop = lazy(() => import('@/pages/Shop'));
-const About = lazy(() => import('@/pages/About'));
-const Contact = lazy(() => import('@/pages/Contact'));
-const Dashboard = lazy(() => import('@/pages/Dashboard'));
-const AdminPanel = lazy(() => import('@/pages/AdminPanel'));
-const NotFound = lazy(() => import('@/pages/NotFound'));
+const Home = lazy(() => import("@/pages/Home"));
+const Services = lazy(() => import("@/pages/Services"));
+const Gallery = lazy(() => import("@/pages/Gallery"));
+const Shop = lazy(() => import("@/pages/Shop"));
+const Checkout = lazy(() => import("@/pages/Checkout"));
+const PaymentSuccess = lazy(() => import("@/pages/PaymentSuccess"));
+const About = lazy(() => import("@/pages/About"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const Dashboard = lazy(() => import("@/pages/Dashboard"));
+const AdminPanel = lazy(() => import("@/pages/AdminPanel"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
 
 // Loading fallback component
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center">
     <div className="text-center">
       <LoadingSpinner size="lg" />
-      <p className="mt-4 font-three text-gray-600 dark:text-gray-400">Loading...</p>
+      <p className="mt-4 font-three text-gray-600 dark:text-gray-400">
+        Loading...
+      </p>
     </div>
   </div>
 );
@@ -71,7 +74,7 @@ const PageTransition = ({ children }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -20 }}
-    transition={{ duration: 0.3, ease: 'easeOut' }}
+    transition={{ duration: 0.3, ease: "easeOut" }}
   >
     {children}
   </motion.div>
@@ -84,81 +87,101 @@ function App() {
         <AnimatePresence mode="wait">
           <Suspense fallback={<PageLoader />}>
             <Routes>
-              <Route 
-                path="/" 
+              <Route
+                path="/"
                 element={
                   <PageTransition>
                     <Home />
                   </PageTransition>
-                } 
+                }
               />
-              <Route 
-                path="/services" 
+              <Route
+                path="/services"
                 element={
                   <PageTransition>
                     <Services />
                   </PageTransition>
-                } 
+                }
               />
-              <Route 
-                path="/gallery" 
+              <Route
+                path="/gallery"
                 element={
                   <PageTransition>
                     <Gallery />
                   </PageTransition>
-                } 
+                }
               />
-              <Route 
-                path="/shop" 
+              <Route
+                path="/shop"
                 element={
                   <PageTransition>
                     <Shop />
                   </PageTransition>
-                } 
+                }
               />
-              <Route 
-                path="/about" 
+              <Route
+                path="/checkout"
+                element={
+                  <ProtectedRoute>
+                    <PageTransition>
+                      <Checkout />
+                    </PageTransition>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/payment/success"
+                element={
+                  <ProtectedRoute>
+                    <PageTransition>
+                      <PaymentSuccess />
+                    </PageTransition>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/about"
                 element={
                   <PageTransition>
                     <About />
                   </PageTransition>
-                } 
+                }
               />
-              <Route 
-                path="/contact" 
+              <Route
+                path="/contact"
                 element={
                   <PageTransition>
                     <Contact />
                   </PageTransition>
-                } 
+                }
               />
-              <Route 
-                path="/dashboard" 
+              <Route
+                path="/dashboard"
                 element={
                   <ProtectedRoute>
                     <PageTransition>
                       <Dashboard />
                     </PageTransition>
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/admin" 
+              <Route
+                path="/admin"
                 element={
                   <ProtectedRoute adminOnly={true}>
                     <PageTransition>
                       <AdminPanel />
                     </PageTransition>
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="*" 
+              <Route
+                path="*"
                 element={
                   <PageTransition>
                     <NotFound />
                   </PageTransition>
-                } 
+                }
               />
             </Routes>
           </Suspense>

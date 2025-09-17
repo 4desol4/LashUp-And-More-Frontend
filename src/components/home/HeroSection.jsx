@@ -81,12 +81,12 @@ const HeroSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.8 }}
               >
-                <Link to="/services">
+                <Link to="/shop">
                   <Button 
                     size="lg" 
                     className="bg-gradient-to-r from-rosegold-400 to-cream-400 text-charcoal-900 hover:from-rosegold-500 hover:to-cream-500 font-semibold px-8 py-4 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
                   >
-                    Book Now
+                    Shop Products
                   </Button>
                 </Link>
                 

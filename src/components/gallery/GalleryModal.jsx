@@ -64,7 +64,7 @@ const GalleryModal = ({ item, index, allItems, isOpen, onClose }) => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'LashUp And More Gallery',
+          title: 'LashUpAndMore Gallery',
           text: 'Check out this amazing work!',
           url: currentItem.url,
         });

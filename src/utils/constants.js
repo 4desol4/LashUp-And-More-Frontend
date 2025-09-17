@@ -2,7 +2,7 @@ export const API_BASE_URL =
   import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 // App Constants
-export const APP_NAME = "LashUp And More";
+export const APP_NAME = "LashUpAndMore";
 export const APP_TAGLINE = "Perfect Eyelashes";
 
 // Services
@@ -111,7 +111,6 @@ export const ORDER_STATUSES = {
   CONFIRMED: "CONFIRMED",
   SHIPPED: "SHIPPED",
   DELIVERED: "DELIVERED",
-  CANCELLED: "CANCELLED",
 };
 
 // Status Colors

@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { bookingsAPI } from '@/services/bookings';
-import { useAuth } from '@/context/AuthContext';
-import toast from 'react-hot-toast';
+import { useState, useEffect } from "react";
+import { bookingsAPI } from "@/services/bookings";
+import { useAuth } from "@/context/AuthContext";
+import toast from "react-hot-toast";
 
 export const useBookings = (isAdmin = false) => {
   const [bookings, setBookings] = useState([]);
@@ -9,7 +9,6 @@ export const useBookings = (isAdmin = false) => {
   const [error, setError] = useState(null);
   const { isAuthenticated } = useAuth();
 
-  // Retry-enabled fetch function
   const fetchBookings = async (retryCount = 3, delay = 5000) => {
     if (!isAuthenticated) return;
 
@@ -22,14 +21,13 @@ export const useBookings = (isAdmin = false) => {
         : await bookingsAPI.getUserBookings();
 
       setBookings(response.data);
-    } catch (error) {
-      console.error('Error fetching bookings:', error);
-
+    } catch (err) {
+      console.error("Error fetching bookings:", err);
       if (retryCount > 0) {
-        console.warn(`Retrying fetch... attempts left: ${retryCount}`);
         setTimeout(() => fetchBookings(retryCount - 1, delay), delay);
       } else {
-        const message = error.response?.data?.message || 'Failed to fetch bookings';
+        const message =
+          err.response?.data?.message || "Failed to fetch bookings";
         setError(message);
         toast.error(message);
       }
@@ -44,12 +42,12 @@ export const useBookings = (isAdmin = false) => {
       setError(null);
 
       const response = await bookingsAPI.createBooking(bookingData);
-      setBookings(prev => [response.data, ...prev]);
+      setBookings((prev) => [response.data.booking, ...prev]);
 
-      toast.success('Booking created successfully!');
-      return { success: true, data: response.data };
-    } catch (error) {
-      const message = error.response?.data?.message || 'Failed to create booking';
+      toast.success("Booking created successfully!");
+      return { success: true, data: response.data.booking };
+    } catch (err) {
+      const message = err.response?.data?.message || "Failed to create booking";
       setError(message);
       toast.error(message);
       return { success: false, error: message };
@@ -64,18 +62,18 @@ export const useBookings = (isAdmin = false) => {
       setError(null);
 
       await bookingsAPI.cancelBooking(bookingId);
-      setBookings(prev =>
-        prev.map(booking =>
+      setBookings((prev) =>
+        prev.map((booking) =>
           booking.id === bookingId
-            ? { ...booking, status: 'CANCELLED' }
+            ? { ...booking, status: "CANCELLED" }
             : booking
         )
       );
 
-      toast.success('Booking cancelled successfully');
+      toast.success("Booking cancelled successfully!");
       return { success: true };
-    } catch (error) {
-      const message = error.response?.data?.message || 'Failed to cancel booking';
+    } catch (err) {
+      const message = err.response?.data?.message || "Failed to cancel booking";
       setError(message);
       toast.error(message);
       return { success: false, error: message };
@@ -85,25 +83,24 @@ export const useBookings = (isAdmin = false) => {
   };
 
   const updateBookingStatus = async (bookingId, status) => {
-    if (!isAdmin) return { success: false, error: 'Unauthorized' };
+    if (!isAdmin) return { success: false, error: "Unauthorized" };
 
     try {
       setLoading(true);
       setError(null);
 
       await bookingsAPI.updateBookingStatus(bookingId, status);
-      setBookings(prev =>
-        prev.map(booking =>
-          booking.id === bookingId
-            ? { ...booking, status }
-            : booking
+      setBookings((prev) =>
+        prev.map((booking) =>
+          booking.id === bookingId ? { ...booking, status } : booking
         )
       );
 
-      toast.success('Booking status updated successfully');
+      toast.success("Booking status updated successfully!");
       return { success: true };
-    } catch (error) {
-      const message = error.response?.data?.message || 'Failed to update booking status';
+    } catch (err) {
+      const message =
+        err.response?.data?.message || "Failed to update booking status";
       setError(message);
       toast.error(message);
       return { success: false, error: message };
@@ -126,6 +123,6 @@ export const useBookings = (isAdmin = false) => {
     createBooking,
     cancelBooking,
     updateBookingStatus,
-    refetch: fetchBookings
+    refetch: fetchBookings,
   };
 };
