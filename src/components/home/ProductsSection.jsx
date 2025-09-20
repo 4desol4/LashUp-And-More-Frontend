@@ -96,7 +96,7 @@ const ProductsSection = () => {
           </motion.span>
 
           <motion.h2
-            className="text-4xl md:text-5xl font-one text-gray-900 dark:text-white mb-6"
+            className="text-4xl md:text-5xl font-one text-charcoal-900 dark:text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

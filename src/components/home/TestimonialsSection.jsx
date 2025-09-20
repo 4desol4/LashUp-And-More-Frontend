@@ -1,4 +1,4 @@
-import{ useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { HiStar, HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import FadeInUp from "@/components/animations/FadeInUp";
@@ -196,7 +196,6 @@ const TestimonialsSection = () => {
       {/* Background Elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-rosegold-200/10 to-transparent rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-tl from-cream-200/10 to-transparent rounded-full blur-3xl" />
-      
 
       {/* Floating Elements */}
       <motion.div
@@ -240,7 +239,7 @@ const TestimonialsSection = () => {
           </motion.span>
 
           <motion.h2
-            className="text-4xl md:text-5xl font-one text-gray-900 dark:text-white mb-6"
+            className="text-4xl md:text-5xl font-one text-charcoal-900 dark:text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

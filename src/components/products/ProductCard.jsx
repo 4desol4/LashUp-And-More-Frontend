@@ -45,18 +45,6 @@ const ProductCard = ({ product, onClick }) => {
                 className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 hover:bg-white transition-colors"
                 onClick={(e) => {
                   e.stopPropagation();
-                  // Add to wishlist logic here
-                }}
-              >
-                <HiHeart className="w-5 h-5" />
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 hover:bg-white transition-colors"
-                onClick={(e) => {
-                  e.stopPropagation();
                   onClick && onClick(product);
                 }}
               >
@@ -83,12 +71,12 @@ const ProductCard = ({ product, onClick }) => {
         {/* Product Info */}
         <div className="p-4 sm:p-5 flex flex-col flex-grow">
           {/* Product Name */}
-          <h3 className="font-semibold font-one text-gray-900 dark:text-white mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 leading-tight group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+          <h3 className="font-one text-charcoal-900 dark:text-white mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 leading-tight group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
             {product.name}
           </h3>
 
           {/* Product Description */}
-          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-3 sm:mb-4 line-clamp-2 leading-relaxed font-three flex-grow">
+          <p className="text-xs sm:text-sm text-charcoal-800 dark:text-white mb-3 sm:mb-4 line-clamp-2 leading-relaxed font-three flex-grow">
             {product.description}
           </p>
 

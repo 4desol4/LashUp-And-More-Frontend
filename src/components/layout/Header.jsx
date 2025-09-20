@@ -120,8 +120,8 @@ const Header = () => {
                   "relative px-2 2xl:px-3 py-2 font-medium text-base 2xl:text-lg transition-colors duration-200 whitespace-nowrap",
                   location.pathname === item.href
                     ? "text-primary-600 dark:text-primary-400"
-                    : `text-gray-400 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 ${
-                        isScrolled ? "text-black" : "text-gray-400"
+                    : `text-charcoal-500 dark:text-charcoal-300 hover:text-primary-600 dark:hover:text-primary-400 ${
+                        isScrolled ? "text-charcoal-900" : "text-charcoal-500"
                       }`
                 )}
               >

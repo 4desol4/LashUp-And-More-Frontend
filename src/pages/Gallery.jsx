@@ -13,7 +13,7 @@ const Gallery = () => {
             animate="animate"
             variants={ANIMATION_VARIANTS.fadeInUp}
           >
-            <h1 className="text-4xl md:text-5xl font-one text-gray-900 font-four dark:text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-one text-charcoal-900 font-four dark:text-white mb-6">
               Our <span className="text-gradient">Gallery</span>
             </h1>
             <p className="text-xl font-three text-gray-600  dark:text-gray-400 leading-relaxed">

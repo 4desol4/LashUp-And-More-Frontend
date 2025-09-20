@@ -101,13 +101,13 @@ const ServicesSection = () => {
           </motion.span>
           <motion.h2
             variants={cardVariants}
-            className="text-4xl md:text-5xl font-one text-gray-900 dark:text-white mb-4"
+            className="text-4xl md:text-5xl font-one text-charcoal-900 dark:text-white mb-4"
           >
             We Love What We Do
           </motion.h2>
           <motion.p
             variants={cardVariants}
-            className="text-lg text-gray-600 font-three font-semibold dark:text-gray-400 max-w-2xl mx-auto"
+            className="text-lg text-charcoal-900 font-three font-semibold dark:text-white max-w-2xl mx-auto"
           >
             Transform your natural beauty with our professional eyelash
             services.

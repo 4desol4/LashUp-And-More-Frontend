@@ -59,7 +59,7 @@ const AboutSection = () => {
                   About Studio
                 </span>
                 
-                <h2 className="text-4xl md:text-5xl font-one  text-gray-900 dark:text-white mb-6  leading-tight">
+                <h2 className="text-4xl md:text-5xl font-one  text-charcoal-900 dark:text-white mb-6  leading-tight">
                   Eye
                   <span className="relative">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-900">
@@ -75,7 +75,7 @@ const AboutSection = () => {
                   </span>
                 </h2>
                 
-                <p className="text-lg text-gray-600 font-three font-semibold dark:text-gray-400 leading-relaxed mb-8">
+                <p className="text-lg text-charcoal-900 font-three font-semibold dark:text-white leading-relaxed mb-8">
                   Eye & Lash Center for creating a beautiful image. We make every 
                   woman uniquely beautiful. We have a team of professional 
                   masters who work on the highest quality materials and use the 

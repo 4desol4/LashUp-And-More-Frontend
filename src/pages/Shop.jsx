@@ -25,10 +25,10 @@ const Shop = () => {
             animate="animate"
             variants={ANIMATION_VARIANTS.fadeInUp}
           >
-            <h1 className="text-4xl md:text-5xl font-one text-gray-900 font-four dark:text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-one text-charcoal-900 font-four dark:text-white mb-6">
               Lash <span className="text-gradient">Products</span>
             </h1>
-            <p className="text-xl font-three text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-xl font-three text-charcoal-700 dark:text-white leading-relaxed">
               Professional-grade lash products to maintain and enhance your
               beautiful lashes at home.
             </p>
