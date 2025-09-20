@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   HiViewGrid,
@@ -18,6 +18,9 @@ import GalleryManagement from "@/components/admin/GalleryManagement";
 import ServiceManagement from "@/components/admin/ServiceManagement";
 import Card from "@/components/ui/Card";
 import { cn } from "@/utils/helpers";
+import { authAPI } from "@/services/auth";
+import toast from "react-hot-toast";
+import UserManagement from "../components/admin/UserManagement";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -26,7 +29,20 @@ const AdminPanel = () => {
   const { products } = useProducts();
   const { items: galleryItems } = useGallery();
   const { services } = useServices();
+  const [users, setUsers] = useState([]);
 
+  const fetchUsers = async () => {
+    try {
+      const res = await authAPI.getAllUsers();
+      setUsers(res.data);
+    } catch (err) {
+      toast.error("Failed to fetch users");
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
   const tabs = [
     { id: "overview", name: "Overview", icon: HiViewGrid },
     { id: "orders", name: "Orders", icon: HiShoppingBag, count: orders.length },
@@ -48,6 +64,7 @@ const AdminPanel = () => {
       icon: HiSupport,
       count: services.length,
     },
+    { id: "users", name: "Users", icon: HiUsers, count: users.length },
   ];
 
   const stats = [
@@ -93,6 +110,8 @@ const AdminPanel = () => {
         return <GalleryManagement />;
       case "services":
         return <ServiceManagement />;
+      case "users":
+        return <UserManagement />;
       default:
         return <OverviewSection stats={stats} orders={orders} />;
     }

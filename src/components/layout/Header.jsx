@@ -120,8 +120,8 @@ const Header = () => {
                   "relative px-2 2xl:px-3 py-2 font-medium text-base 2xl:text-lg transition-colors duration-200 whitespace-nowrap",
                   location.pathname === item.href
                     ? "text-primary-600 dark:text-primary-400"
-                    : `text-gray-500  dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 ${
-                        isScrolled ? "text-gray-700" : "text-gray-500"
+                    : `text-gray-400 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 ${
+                        isScrolled ? "text-black" : "text-gray-400"
                       }`
                 )}
               >
@@ -129,7 +129,7 @@ const Header = () => {
                 {location.pathname === item.href && (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-600 to-burgundy-600"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-600 to-primary-900"
                   />
                 )}
               </Link>
@@ -163,7 +163,7 @@ const Header = () => {
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center space-x-1 sm:space-x-2 p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-charcoal-800 transition-colors"
                 >
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-primary-600 to-burgundy-600 rounded-full flex items-center justify-center text-white font-medium text-xs sm:text-sm">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-primary-600 to-primary-900 rounded-full flex items-center justify-center text-white font-medium text-xs sm:text-sm">
                     {user?.name?.charAt(0)?.toUpperCase()}
                   </div>
                   {windowWidth >= 640 && windowWidth > 1280 && (
@@ -189,7 +189,7 @@ const Header = () => {
                         <span>Dashboard</span>
                       </Link>
 
-                      {isAdmin && (
+                      {isAdmin() && (
                         <Link
                           to="/admin"
                           className="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-charcoal-700"
@@ -312,7 +312,7 @@ const Header = () => {
                     <hr className="my-3 border-gray-200 dark:border-charcoal-600 mx-2" />
                     <div className="px-3 sm:px-4 py-2">
                       <div className="flex items-center space-x-3 mb-3">
-                        <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-burgundy-600 rounded-full flex items-center justify-center text-white font-medium text-sm">
+                        <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-primary-900 rounded-full flex items-center justify-center text-white font-medium text-sm">
                           {user?.name?.charAt(0)?.toUpperCase()}
                         </div>
                         <span className="font-medium text-gray-900 dark:text-gray-100">
@@ -329,7 +329,7 @@ const Header = () => {
                           <span>Dashboard</span>
                         </Link>
 
-                        {isAdmin && (
+                        {isAdmin() && (
                           <Link
                             to="/admin"
                             className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-charcoal-700 rounded-lg"

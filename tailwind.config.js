@@ -9,19 +9,21 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Primary colors (where you can change from pink)
         primary: {
-          50: '#fdf2f8',
-          100: '#fce7f3',
-          200: '#fbcfe8',
-          300: '#f9a8d4',
-          400: '#f472b6',
-          500: '#ec4899',
-          600: '#db2777',
-          700: '#be185d',
-          800: '#9d174d',
-          900: '#831843',
-          950: '#500724',
+          50: '#f0f9ff',
+          100: '#e0f2fe', 
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',  // Main primary color - change this to your preferred color
+          600: '#0284c7',  // Used for hover states
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
+          950: '#082f49',
         },
+        // Secondary accent colors
         burgundy: {
           50: '#fef2f2',
           100: '#fee2e2',
@@ -61,18 +63,19 @@ export default {
           900: '#713f12',
           950: '#422006',
         },
+        // Updated charcoal for true black theme
         charcoal: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-          950: '#020617',
+          50: '#fafafa',
+          100: '#f4f4f5',
+          200: '#e4e4e7',
+          300: '#d4d4d8',
+          400: '#a1a1aa',
+          500: '#71717a',
+          600: '#52525b',
+          700: '#3f3f46',
+          800: '#27272a',
+          900: '#000000',  // True black for dark mode
+          950: '#000000',
         }
       },
       fontFamily: {
@@ -144,11 +147,21 @@ export default {
         xs: '2px',
       },
       boxShadow: {
-        'glow': '0 0 20px rgba(236, 72, 153, 0.3)',
-        'glow-lg': '0 0 40px rgba(236, 72, 153, 0.4)',
-        'inner-glow': 'inset 0 2px 4px 0 rgba(236, 72, 153, 0.1)',
+        'glow': '0 0 20px rgba(14, 165, 233, 0.3)',  // Updated to match new primary color
+        'glow-lg': '0 0 40px rgba(14, 165, 233, 0.4)',
+        'inner-glow': 'inset 0 2px 4px 0 rgba(14, 165, 233, 0.1)',
       },
     },
   },
   plugins: [],
 }
+
+// To change the primary color from blue to another color:
+// 1. Update the primary color object above (lines 15-25)
+// 2. Update the glow shadows (lines 114-116) to match
+// 3. Example colors you can use:
+//    - Purple: #8b5cf6 (primary.500), #7c3aed (primary.600)  
+//    - Green: #10b981 (primary.500), #059669 (primary.600)
+//    - Pink: #ec4899 (primary.500), #db2777 (primary.600) - original
+//    - Orange: #f59e0b (primary.500), #d97706 (primary.600)
+//    - Red: #ef4444 (primary.500), #dc2626 (primary.600)

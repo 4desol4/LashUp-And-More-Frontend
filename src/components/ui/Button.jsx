@@ -17,7 +17,7 @@ const Button = React.forwardRef(({
   const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg';
 
   const variants = {
-    primary: 'bg-gradient-to-r from-primary-600 to-burgundy-600 text-white hover:from-primary-700 hover:to-burgundy-700 focus:ring-primary-500 shadow-md hover:shadow-lg hover:shadow-primary-500/25',
+    primary: 'bg-gradient-to-r from-primary-600 to-primary-900 text-white hover:from-primary-700 hover:to-primary-800 focus:ring-primary-500 shadow-md hover:shadow-lg hover:shadow-primary-500/25',
     secondary: 'bg-white text-primary-600 border-2 border-primary-600 hover:bg-primary-50 focus:ring-primary-500 shadow-sm',
     outline: 'border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white focus:ring-primary-500 bg-transparent',
     ghost: 'text-primary-600 hover:bg-primary-50 focus:ring-primary-500 bg-transparent',

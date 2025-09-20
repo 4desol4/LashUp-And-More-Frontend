@@ -17,7 +17,7 @@ const NotFound = () => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <motion.h1
-              className="text-9xl md:text-[12rem] font-one text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-burgundy-600 "
+              className="text-9xl md:text-[12rem] font-one text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-900 "
               animate={{ 
                 backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
               }}

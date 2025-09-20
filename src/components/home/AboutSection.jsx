@@ -62,11 +62,11 @@ const AboutSection = () => {
                 <h2 className="text-4xl md:text-5xl font-one  text-gray-900 dark:text-white mb-6  leading-tight">
                   Eye
                   <span className="relative">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-burgundy-600">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-900">
                       lashes
                     </span>
                     <motion.div
-                      className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-600 to-burgundy-600 rounded-full"
+                      className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-600 to-primary-900 rounded-full"
                       initial={{ width: 0 }}
                       whileInView={{ width: '100%' }}
                       viewport={{ once: true }}
@@ -94,7 +94,7 @@ const AboutSection = () => {
                     transition={{ type: 'spring', stiffness: 300 }}
                   >
                     <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-burgundy-600 rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-primary-900 rounded-full flex items-center justify-center">
                         <feature.icon className="w-6 h-6 text-white" />
                       </div>
                     </div>
@@ -172,7 +172,7 @@ const AboutSection = () => {
                 />
                 
                 <motion.div
-                  className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-tl from-primary-400 to-burgundy-400 rounded-full opacity-60 blur-2xl"
+                  className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-tl from-primary-400 to-primary-600 rounded-full opacity-60 blur-2xl"
                   animate={{ 
                     scale: [1, 1.3, 1],
                     opacity: [0.6, 0.3, 0.6]
@@ -220,7 +220,7 @@ const AboutSection = () => {
         {/* Bottom Stats Section */}
         <FadeInUp delay={1.0}>
           <motion.div
-            className="mt-20 bg-gradient-to-r from-primary-50 to-burgundy-50 dark:from-charcoal-800 dark:to-charcoal-700 rounded-2xl p-8 md:p-12"
+            className="mt-20 bg-gradient-to-r from-primary-50 to-primary-100 dark:from-charcoal-800 dark:to-charcoal-700 rounded-2xl p-8 md:p-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

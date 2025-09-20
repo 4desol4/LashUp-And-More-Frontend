@@ -50,7 +50,7 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
     );
   }
 
-  if (adminOnly && !isAdmin) {
+  if (adminOnly && !isAdmin()) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

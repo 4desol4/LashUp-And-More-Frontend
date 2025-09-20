@@ -72,11 +72,11 @@ const Modal = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.2 }}
-            className={`relative w-full ${sizes[size]} bg-white dark:bg-gray-800 rounded-lg shadow-2xl z-50 my-8 m-4 max-h-[90vh] flex flex-col overflow-hidden ${className}`}
+            className={`relative w-full ${sizes[size]} bg-white dark:bg-charcoal-800 rounded-lg shadow-2xl z-50 my-8 m-4 max-h-[90vh] flex flex-col overflow-hidden ${className}`}
           >
             {/* Header */}
             {(title || showCloseButton) && (
-              <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-charcoal-700">
                 {title && (
                   <h3 className="text-xl font-one text-gray-900 dark:text-white">
                     {title}
@@ -85,7 +85,7 @@ const Modal = ({
                 {showCloseButton && (
                   <button
                     onClick={onClose}
-                    className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-200 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="p-2 text-gray-400 hover:text-charcoal-600 dark:hover:text-gray-200 transition-colors duration-200 rounded-full hover:bg-gray-100 dark:hover:bg-charcoal-700"
                     aria-label="Close modal"
                   >
                     <X className="w-5 h-5" />
@@ -120,13 +120,15 @@ export const ConfirmModal = ({
     danger: "bg-red-600 hover:bg-red-700 focus:ring-red-500",
     warning: "bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500",
     success: "bg-green-600 hover:bg-green-700 focus:ring-green-500",
-    primary: "bg-pink-600 hover:bg-pink-700 focus:ring-pink-500",
+    primary: "bg-primary-600 hover:bg-primary-700 focus:ring-primary-500",
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} size="sm">
       <div className="text-center">
-        <p className="text-gray-600 font-three dark:text-gray-300 mb-6">{message}</p>
+        <p className="text-gray-600 font-three dark:text-gray-300 mb-6">
+          {message}
+        </p>
 
         <div className="flex space-x-3 justify-center">
           <button

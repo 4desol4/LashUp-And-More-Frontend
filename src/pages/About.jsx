@@ -44,8 +44,8 @@ const About = () => {
             animate="animate"
             variants={ANIMATION_VARIANTS.fadeInUp}
           >
-            <h1 className="text-4xl md:text-5xl font-one text-gray-900 dark:text-white mb-6">
-              About <span className="text-gradient">LashUpAndMore</span>
+            <h1 className="text-4xl md:text-5xl font-one text-gray-900 font-four dark:text-white mb-6">
+              About <span className="text-gradient ">LashUpAndMore</span>
             </h1>
             <p className="text-xl text-gray-600 font-three dark:text-gray-400 leading-relaxed">
               Where artistry meets beauty, and every client leaves feeling confident and beautiful.

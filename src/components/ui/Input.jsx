@@ -34,21 +34,21 @@ const Input = forwardRef(
 
     const variants = {
       default: `
-      border border-gray-300 dark:border-gray-600 rounded-lg
-      bg-white dark:bg-gray-800
-      focus:ring-2 focus:ring-pink-500 focus:border-transparent
-      hover:border-gray-400 dark:hover:border-gray-500
-    `,
+   border border-charcoal-300 dark:border-charcoal-600 rounded-lg
+   bg-white dark:bg-charcoal-800
+   focus:ring-2 focus:ring-primary-500 focus:border-transparent
+   hover:border-charcoal-400 dark:hover:border-charcoal-500
+  `,
       filled: `
-      border-0 rounded-lg bg-gray-100 dark:bg-gray-700
-      focus:ring-2 focus:ring-pink-500
-      hover:bg-gray-200 dark:hover:bg-gray-600
-    `,
+  border-0 rounded-lg bg-charcoal-100 dark:bg-charcoal-700
+  focus:ring-2 focus:ring-primary-500
+  hover:bg-charcoal-200 dark:hover:bg-charcoal-600
+  `,
       underline: `
-      border-0 border-b-2 border-gray-300 dark:border-gray-600 rounded-none
-      bg-transparent focus:border-pink-500
-      hover:border-gray-400 dark:hover:border-gray-500
-    `,
+  border-0 border-b-2 border-charcoal-300 dark:border-charcoal-600 rounded-none
+  bg-transparent focus:border-primary-500
+  hover:border-charcoal-400 dark:hover:border-charcoal-500
+  `,
     };
 
     const sizes = {
@@ -103,7 +103,7 @@ const Input = forwardRef(
                 ? "text-red-600 dark:text-red-400"
                 : "text-gray-700 dark:text-gray-300"
             }
-            ${isFocused ? "text-pink-600 dark:text-pink-400" : ""}
+            ${isFocused ? "text-primary-600 dark:text-primary-400" : ""}
           `}
           >
             {label}
@@ -227,7 +227,7 @@ export const Textarea = forwardRef(
     w-full transition-all duration-200 focus:outline-none
     border border-gray-300 dark:border-gray-600 rounded-lg
     bg-white dark:bg-gray-800
-    focus:ring-2 focus:ring-pink-500 focus:border-transparent
+    focus:ring-2 focus:ring-primary-500 focus:border-transparent
     hover:border-gray-400 dark:hover:border-gray-500
     px-4 py-3 text-base
     ${error ? "border-red-500 focus:ring-red-500" : ""}
@@ -251,7 +251,7 @@ export const Textarea = forwardRef(
                 ? "text-red-600 dark:text-red-400"
                 : "text-gray-700 dark:text-gray-300"
             }
-            ${isFocused ? "text-pink-600 dark:text-pink-400" : ""}
+            ${isFocused ? "text-primary-600 dark:text-primary-400" : ""}
           `}
           >
             {label}

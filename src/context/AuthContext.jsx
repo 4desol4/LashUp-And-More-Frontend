@@ -16,6 +16,14 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState("login");
+
+  const openAuthModal = (mode = "login") => {
+    setAuthModalMode(mode);
+    setAuthModalOpen(true);
+  };
+  const closeAuthModal = () => setAuthModalOpen(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -38,13 +46,15 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       setLoading(true);
-
       const response = await authAPI.login(credentials);
-      const { token, user: userData } = response.data;
+      const { token } = response.data;
 
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(userData));
 
+      const profileResponse = await authAPI.getProfile();
+      const userData = profileResponse.data.user;
+
+      localStorage.setItem("user", JSON.stringify(userData));
       setUser(userData);
       setIsAuthenticated(true);
 
@@ -141,14 +151,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-
   const isAdmin = () => {
-    if (!user) return false;
-    const role = user.role?.toLowerCase();
-    return role === "admin";
+    if (!user || !user.role) return false;
+    return user.role.toLowerCase() === "admin";
   };
 
-  
   const hasRole = (targetRole) => {
     if (!user) return false;
     const userRole = user.role?.toLowerCase();
@@ -198,6 +205,10 @@ export const AuthProvider = ({ children }) => {
     updateUserRole,
     isAdmin,
     hasRole,
+    authModalOpen,
+    authModalMode,
+    openAuthModal,
+    closeAuthModal,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

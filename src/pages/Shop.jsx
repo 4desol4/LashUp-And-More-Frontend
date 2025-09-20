@@ -13,7 +13,7 @@ import Card from "@/components/ui/Card";
 const Shop = () => {
   const { items, updateQuantity, removeItem, getTotalPrice, itemCount } =
     useCart();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, openAuthModal } = useAuth();
 
   return (
     <div className="min-h-screen pt-20">
@@ -25,7 +25,7 @@ const Shop = () => {
             animate="animate"
             variants={ANIMATION_VARIANTS.fadeInUp}
           >
-            <h1 className="text-4xl md:text-5xl font-one text-gray-900 dark:text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-one text-gray-900 font-four dark:text-white mb-6">
               Lash <span className="text-gradient">Products</span>
             </h1>
             <p className="text-xl font-three text-gray-600 dark:text-gray-400 leading-relaxed">
@@ -144,13 +144,7 @@ const Shop = () => {
                           </p>
                           <Button
                             className="w-full font-three"
-                            onClick={() => {
-                              // This will be handled by AuthModal in Header
-                              const loginButton = document.querySelector(
-                                '[data-auth="login"]'
-                              );
-                              if (loginButton) loginButton.click();
-                            }}
+                            onClick={() => openAuthModal("login")}
                           >
                             Login to Continue
                           </Button>

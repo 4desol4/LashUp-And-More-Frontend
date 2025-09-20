@@ -1,20 +1,19 @@
-import api from './api';
+import api from "./api";
 
 export const authAPI = {
   // Register new user
   register: (userData) => {
-    return api.post('/auth/register', userData);
+    return api.post("/auth/register", userData);
   },
 
   // Login user
   login: (credentials) => {
-    return api.post('/auth/login', credentials);
+    return api.post("/auth/login", credentials);
   },
 
-  
   logout: () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     return Promise.resolve();
   },
 
@@ -22,13 +21,10 @@ export const authAPI = {
     return api.get("/auth/profile");
   },
 
-  
   updateProfile: (profileData) => {
-    
     const safeData = {
       name: profileData.name,
-      email: profileData.email
-     
+      email: profileData.email,
     };
     return api.put("/auth/profile", safeData);
   },
@@ -41,39 +37,34 @@ export const authAPI = {
     return api.delete("/auth/account", { data: { password } });
   },
 
- 
   updateUserRole: (userId, role) => {
     return api.put(`/auth/admin/user/${userId}/role`, { role });
   },
 
-  
   getCurrentUser: () => {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
     return user ? JSON.parse(user) : null;
   },
 
-
   isAuthenticated: () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     return !!token;
   },
 
-  
   isAdmin: () => {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
     if (!user) return false;
     try {
       const parsedUser = JSON.parse(user);
       const role = parsedUser.role?.toLowerCase();
-      return role === 'admin';
+      return role === "admin";
     } catch {
       return false;
     }
   },
 
-
   hasRole: (targetRole) => {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
     if (!user) return false;
     try {
       const parsedUser = JSON.parse(user);
@@ -86,7 +77,7 @@ export const authAPI = {
 
   // Get user role
   getUserRole: () => {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
     if (!user) return null;
     try {
       const parsedUser = JSON.parse(user);
@@ -96,25 +87,37 @@ export const authAPI = {
     }
   },
 
-
   refreshUserData: async () => {
     try {
       const response = await api.get("/auth/profile");
       const userData = response.data.user;
-      
-      
-      localStorage.setItem('user', JSON.stringify(userData));
-      
+
+      localStorage.setItem("user", JSON.stringify(userData));
+
       return { success: true, user: userData };
     } catch (error) {
-      console.error('Error refreshing user data:', error);
+      console.error("Error refreshing user data:", error);
       return { success: false, error: error.response?.data?.message };
     }
   },
 
-
   getAuthHeader: () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     return token ? { Authorization: `Bearer ${token}` } : {};
-  }
+  },
+
+  getAllUsers: () => {
+    return api.get("/auth/admin/users");
+  },
+
+  //  Update user role
+  updateUserRole: (userId, role) => {
+    return api.put(`/auth/admin/user/${userId}/role`, { role });
+  },
+  deleteUser: (userId) => {
+    return api.delete(`/auth/users/${userId}`);
+  },
+  getUserDetails: (userId) => {
+    return api.get(`/auth/users/${userId}`);
+  },
 };

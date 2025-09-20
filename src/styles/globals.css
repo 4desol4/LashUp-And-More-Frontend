@@ -8,7 +8,7 @@
   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 20px rgba(236, 72, 153, 0.3);
+  --shadow-glow: 0 0 20px rgba(14, 165, 233, 0.3); /* Updated to match new primary color */
 }
 
 html {
@@ -18,7 +18,14 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
 }
+
+/* Dark mode body */
+.dark body {
+  background-color: #000000; /* Pure black for dark mode */
+}
+
 .font-one {
   font-family: "Lilita One", sans-serif;
 }
@@ -34,9 +41,10 @@ body {
 .font-five {
   font-family: "Qwitcher Grypen", cursive;
 }
+
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center px-4 py-2 sm:px-6 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-lg shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-primary {
@@ -52,7 +60,7 @@ body {
   }
 
   .card {
-    @apply bg-white dark:bg-charcoal-800 rounded-xl shadow-lg border border-gray-100 dark:border-charcoal-700 p-6 transition-all duration-200;
+    @apply bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-100 dark:border-gray-800 p-4 sm:p-6 transition-all duration-200;
   }
 
   .card-hover {
@@ -60,23 +68,23 @@ body {
   }
 
   .input {
-    @apply block w-full px-4 py-3 border border-gray-300 dark:border-charcoal-600 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-charcoal-800 text-charcoal-900 dark:text-white transition-colors duration-200;
+    @apply block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200 text-sm sm:text-base;
   }
 
   .glass {
-    @apply backdrop-blur-lg bg-white/30 dark:bg-charcoal-900/30 border border-white/20 dark:border-charcoal-700/20;
+    @apply backdrop-blur-lg bg-white/30 dark:bg-black/30 border border-white/20 dark:border-gray-800/20;
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-primary-600 to-burgundy-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent;
   }
 
   .bg-gradient-primary {
-    @apply bg-gradient-to-r from-primary-500 to-burgundy-600;
+    @apply bg-gradient-to-r from-primary-500 to-blue-600;
   }
 
   .bg-gradient-secondary {
-    @apply bg-gradient-to-r from-rosegold-400 to-cream-400;
+    @apply bg-gradient-to-r from-gray-400 to-gray-600;
   }
 }
 
@@ -94,13 +102,45 @@ body {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm;
+  }
+
+  .text-responsive-sm {
+    @apply text-sm sm:text-base;
+  }
+
+  .text-responsive-base {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+
+  .text-responsive-lg {
+    @apply text-base sm:text-lg lg:text-xl;
+  }
+
+  .text-responsive-xl {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+
+  .text-responsive-2xl {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  .text-responsive-3xl {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+
+  .text-responsive-4xl {
+    @apply text-3xl sm:text-4xl lg:text-5xl;
+  }
 }
 
 /* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -111,7 +151,7 @@ body {
 @keyframes slideInFromLeft {
   from {
     opacity: 0;
-    transform: translateX(-100px);
+    transform: translateX(-50px);
   }
   to {
     opacity: 1;
@@ -140,12 +180,12 @@ body {
 }
 
 .skeleton {
-  @apply animate-pulse bg-gray-200 dark:bg-charcoal-700 rounded;
+  @apply animate-pulse bg-gray-200 dark:bg-gray-800 rounded;
 }
 
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #ec4899 transparent;
+  scrollbar-color: #0ea5e9 transparent; 
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -158,57 +198,72 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #ec4899;
+  background-color: #0ea5e9; 
   border-radius: 3px;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .hover-only:hover {
-    @apply opacity-100;
+/* Mobile-first responsive improvements */
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+
+  .btn {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .card {
+    @apply p-4;
+  }
+
+  .modal-content {
+    @apply mx-4;
   }
 }
 
-/* Responsive text sizes */
-.text-responsive-xs {
-  @apply text-xs sm:text-sm;
+/* Tablet responsive improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .container {
+    @apply px-6;
+  }
 }
 
-.text-responsive-sm {
-  @apply text-sm sm:text-base;
-}
-
-.text-responsive-base {
-  @apply text-base sm:text-lg;
-}
-
-.text-responsive-lg {
-  @apply text-lg sm:text-xl;
-}
-
-.text-responsive-xl {
-  @apply text-xl sm:text-2xl;
-}
-
-.text-responsive-2xl {
-  @apply text-2xl sm:text-3xl;
-}
-
-.text-responsive-3xl {
-  @apply text-3xl sm:text-4xl;
-}
-
-.text-responsive-4xl {
-  @apply text-4xl sm:text-5xl;
+/* Desktop improvements */
+@media (min-width: 1025px) {
+  .container {
+    @apply px-8;
+  }
 }
 
 /* Focus states for accessibility */
 .focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-charcoal-900;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-black;
 }
 
 /* Print styles */
 @media print {
   .no-print {
     display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card {
+    @apply border-2;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
