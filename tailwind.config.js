@@ -6,6 +6,23 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: 'class',
+    safelist: [
+    'dark',
+    'light', 
+    'text-white',
+    'text-gray-900',
+    'text-gray-600',
+    'text-gray-400',
+    'text-gray-500',
+    'bg-white',
+    'bg-gray-900', 
+    'bg-gray-50',
+    'bg-black',
+    {
+      pattern: /^(text|bg|border)-(gray|white|black)-(50|100|200|300|400|500|600|700|800|900)$/,
+      variants: ['dark', 'hover', 'focus', 'active']
+    }
+  ],
   theme: {
     extend: {
       colors: {
