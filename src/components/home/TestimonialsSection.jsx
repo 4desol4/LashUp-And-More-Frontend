@@ -38,13 +38,13 @@ const TestimonialCard = ({ testimonial, index, isActive }) => {
       }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className={`bg-white dark:bg-charcoal-800 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 relative overflow-hidden ${
-        isActive ? "ring-2 ring-rosegold-300" : ""
+        isActive ? "ring-2 ring-primary-300" : ""
       }`}
     >
       {/* Quote Icon */}
       <div className="absolute top-6 right-6 opacity-10">
         <svg
-          className="w-16 h-16 text-rosegold-400"
+          className="w-16 h-16 text-primary-400"
           fill="currentColor"
           viewBox="0 0 24 24"
         >
@@ -79,7 +79,7 @@ const TestimonialCard = ({ testimonial, index, isActive }) => {
         </motion.div>
 
         <div>
-          <h4 className="font-one font-semibold text-gray-900 dark:text-white">
+          <h4 className="font-one  text-gray-900 dark:text-white">
             {testimonial.clientName}
           </h4>
           <p className="text-sm text-gray-500 dark:text-gray-400 font-three">
@@ -89,7 +89,7 @@ const TestimonialCard = ({ testimonial, index, isActive }) => {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-rosegold-200/20 to-cream-200/20 rounded-full blur-xl" />
+      <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-primary-400/20 to-primary-200/20 rounded-full blur-xl" />
     </motion.div>
   );
 };
@@ -287,7 +287,7 @@ const TestimonialsSection = () => {
                   }}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === currentIndex
-                      ? "bg-rosegold-400 w-8"
+                      ? "bg-primary-400 w-8"
                       : "bg-gray-300 dark:bg-gray-600 hover:bg-rosegold-200"
                   }`}
                 />
@@ -328,7 +328,7 @@ const TestimonialsSection = () => {
           >
             <div className="text-center">
               <motion.div
-                className="text-3xl md:text-4xl font-bold text-rosegold-500"
+                className="text-3xl md:text-4xl font-bold text-primary-500"
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{
                   repeat: Infinity,
@@ -336,7 +336,7 @@ const TestimonialsSection = () => {
                   ease: "easeInOut",
                 }}
               >
-                98%
+                99%
               </motion.div>
               <p className="text-gray-600 dark:text-gray-400 font-three">
                 Client Satisfaction
@@ -347,7 +347,7 @@ const TestimonialsSection = () => {
 
             <div className="text-center">
               <motion.div
-                className="text-3xl md:text-4xl font-bold text-rosegold-500"
+                className="text-3xl md:text-4xl font-bold text-primary-500"
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{
                   repeat: Infinity,
@@ -367,7 +367,7 @@ const TestimonialsSection = () => {
 
             <div className="text-center">
               <motion.div
-                className="text-3xl md:text-4xl font-bold text-rosegold-500"
+                className="text-3xl md:text-4xl font-bold text-primary-500"
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{
                   repeat: Infinity,

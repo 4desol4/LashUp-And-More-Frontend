@@ -84,7 +84,7 @@ export default {
           900: '#713f12',
           950: '#422006',
         },
-        // Fix charcoal colors for proper dark mode
+       
         charcoal: {
           50: '#fafafa',
           100: '#f4f4f5',
@@ -94,9 +94,9 @@ export default {
           500: '#71717a',
           600: '#52525b',
           700: '#3f3f46',
-          800: '#27272a',
-          900: '#18181b',  // Changed from pure black
-          950: '#09090b',  // Added for better gradation
+          800: '#0b0b0b',
+          900: '#000000',  
+          950: '#000000',  
         }
       },
       fontFamily: {
