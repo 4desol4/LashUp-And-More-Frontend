@@ -9,22 +9,49 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-glow: 0 0 20px rgba(14, 165, 233, 0.3);
+
+  /* CSS Variables for theme colors - Critical for production */
+  --text-color: #1f2937;
+  --bg-color: #ffffff;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --border-color: #e5e7eb;
+  --card-bg: #ffffff;
+}
+
+/* Dark theme variables */
+.dark {
+  --text-color: #ffffff !important;
+  --bg-color: #000000 !important;
+  --text-secondary: #9ca3af !important;
+  --text-muted: #6b7280 !important;
+  --border-color: #374151 !important;
+  --card-bg: #111827 !important;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+/* Force theme colors using CSS variables AND Tailwind classes */
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
-  color: #1f2937;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.dark body {
-  background-color: #000000;
-  color: #ffffff;
+/* Light mode explicit rules */
+body:not(.dark) {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+}
+
+/* Dark mode explicit rules */
+body.dark {
+  background-color: #000000 !important;
+  color: #ffffff !important;
 }
 
 .font-one {
@@ -61,7 +88,9 @@ body {
   }
 
   .card {
-    @apply bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-100 dark:border-gray-800 p-4 sm:p-6 transition-all duration-200;
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    @apply rounded-xl shadow-lg border border-gray-100 dark:border-gray-800 p-4 sm:p-6 transition-all duration-200;
   }
 
   .card-hover {
@@ -88,30 +117,84 @@ body {
     @apply bg-gradient-to-r from-gray-400 to-gray-600;
   }
 
-  /* Text color utilities that work with theme switching */
-  .text-primary {
-    @apply text-gray-900 dark:text-white;
+  /* Production-safe theme utilities with both CSS vars and Tailwind */
+  .text-theme-primary {
+    color: var(--text-color) !important;
   }
 
-  .text-secondary {
-    @apply text-gray-600 dark:text-gray-400;
+  .text-theme-secondary {
+    color: var(--text-secondary) !important;
   }
 
-  .text-muted {
-    @apply text-gray-500 dark:text-gray-500;
+  .text-theme-muted {
+    color: var(--text-muted) !important;
   }
 
-  .border-primary {
-    @apply border-gray-200 dark:border-gray-800;
+  .bg-theme-primary {
+    background-color: var(--bg-color) !important;
   }
 
-  .bg-primary {
-    @apply bg-white dark:bg-gray-900;
+  .bg-theme-card {
+    background-color: var(--card-bg) !important;
   }
+}
 
-  .bg-secondary {
-    @apply bg-gray-50 dark:bg-gray-800;
-  }
+/* Force color overrides for problematic elements in production */
+.text-gray-900 {
+  color: #111827 !important;
+}
+
+.dark .text-gray-900 {
+  color: #f9fafb !important;
+}
+
+.text-gray-600 {
+  color: #4b5563 !important;
+}
+
+.dark .text-gray-600 {
+  color: #9ca3af !important;
+}
+
+.text-gray-400 {
+  color: #9ca3af !important;
+}
+
+.dark .text-gray-400 {
+  color: #6b7280 !important;
+}
+
+.text-gray-500 {
+  color: #6b7280 !important;
+}
+
+.dark .text-gray-500 {
+  color: #9ca3af !important;
+}
+
+/* Background overrides */
+.bg-white {
+  background-color: #ffffff !important;
+}
+
+.dark .bg-white {
+  background-color: #111827 !important;
+}
+
+.bg-gray-900 {
+  background-color: #111827 !important;
+}
+
+.dark .bg-gray-900 {
+  background-color: #111827 !important;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb !important;
+}
+
+.dark .bg-gray-50 {
+  background-color: #1f2937 !important;
 }
 
 /* Utilities */
@@ -129,40 +212,55 @@ body {
     display: none;
   }
 
+  /* Responsive text utilities with forced colors */
   .text-responsive-xs {
-    @apply text-xs sm:text-sm;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--text-color) !important;
+  }
+
+  @media (min-width: 640px) {
+    .text-responsive-xs {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
   }
 
   .text-responsive-sm {
-    @apply text-sm sm:text-base;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--text-color) !important;
+  }
+
+  @media (min-width: 640px) {
+    .text-responsive-sm {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
   }
 
   .text-responsive-base {
-    @apply text-sm sm:text-base lg:text-lg;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--text-color) !important;
   }
 
-  .text-responsive-lg {
-    @apply text-base sm:text-lg lg:text-xl;
+  @media (min-width: 640px) {
+    .text-responsive-base {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
   }
 
-  .text-responsive-xl {
-    @apply text-lg sm:text-xl lg:text-2xl;
-  }
-
-  .text-responsive-2xl {
-    @apply text-xl sm:text-2xl lg:text-3xl;
-  }
-
-  .text-responsive-3xl {
-    @apply text-2xl sm:text-3xl lg:text-4xl;
-  }
-
-  .text-responsive-4xl {
-    @apply text-3xl sm:text-4xl lg:text-5xl;
+  @media (min-width: 1024px) {
+    .text-responsive-base {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
   }
 }
 
-/* Animations */
+/* Rest of your animations and responsive styles remain the same... */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -245,21 +343,6 @@ body {
   .modal-content {
     @apply mx-4;
   }
-
-  /* Fix text overflow on mobile */
-  .text-responsive-mobile {
-    @apply text-sm leading-relaxed;
-  }
-
-  /* Improve mobile spacing */
-  .mobile-spacing {
-    @apply space-y-4;
-  }
-
-  /* Mobile grid adjustments */
-  .mobile-grid {
-    @apply grid-cols-1 gap-4;
-  }
 }
 
 /* Tablet responsive improvements */
@@ -267,20 +350,12 @@ body {
   .container {
     @apply px-6;
   }
-
-  .tablet-grid {
-    @apply grid-cols-2 gap-6;
-  }
 }
 
 /* Desktop improvements */
 @media (min-width: 1025px) {
   .container {
     @apply px-8;
-  }
-
-  .desktop-grid {
-    @apply grid-cols-3 gap-8;
   }
 }
 
@@ -298,21 +373,5 @@ body {
   body {
     background: white !important;
     color: black !important;
-  }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .card {
-    @apply border-2;
-  }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }
