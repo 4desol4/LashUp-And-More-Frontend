@@ -8,7 +8,26 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { CartProvider } from "@/context/CartContext";
 import "@/styles/globals.css";
 
-// Create root element
+import themeService from "@/services/themeService";
+
+if (typeof window !== "undefined") {
+ 
+  const initTheme = () => {
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const theme = stored || (prefersDark ? "dark" : "light");
+
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(theme);
+    document.body.classList.remove("light", "dark");
+    document.body.classList.add(theme);
+  };
+
+  initTheme();
+}
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

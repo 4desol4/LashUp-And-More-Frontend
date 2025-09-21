@@ -3,22 +3,119 @@
 @import "tailwindcss/utilities";
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lilita+One&family=Qwitcher+Grypen:wght@400;700&family=Rajdhani:wght@300;400;500;600;700&family=Rubik+Gemstones&display=swap");
 
+@layer base {
+  
+  html {
+    transition: none !important;
+  }
+  
+  body {
+    transition: none !important;
+  }
+  
+  /* Light mode text fixes - CRITICAL */
+  html:not(.dark) body,
+  html.light body,
+  body:not(.dark),
+  body.light {
+    color: #111827 !important;
+    background-color: #ffffff !important;
+  }
+  
+  html:not(.dark) .text-charcoal-900,
+  html:not(.dark) .text-gray-900,
+  html.light .text-charcoal-900,
+  html.light .text-gray-900 {
+    color: #111827 !important;
+  }
+  
+  html:not(.dark) .text-charcoal-800,
+  html:not(.dark) .text-gray-800,
+  html.light .text-charcoal-800,
+  html.light .text-gray-800 {
+    color: #1f2937 !important;
+  }
+  
+  html:not(.dark) .text-charcoal-700,
+  html:not(.dark) .text-gray-700,
+  html.light .text-charcoal-700,
+  html.light .text-gray-700 {
+    color: #374151 !important;
+  }
+  
+  html:not(.dark) .text-charcoal-600,
+  html:not(.dark) .text-gray-600,
+  html.light .text-charcoal-600,
+  html.light .text-gray-600 {
+    color: #4b5563 !important;
+  }
+  
+  html:not(.dark) .text-charcoal-500,
+  html:not(.dark) .text-gray-500,
+  html.light .text-charcoal-500,
+  html.light .text-gray-500 {
+    color: #6b7280 !important;
+  }
+  
+  /* Dark mode text fixes */
+  html.dark body,
+  body.dark {
+    color: #f9fafb !important;
+    background-color: #111827 !important;
+  }
+  
+  html.dark .text-white,
+  body.dark .text-white {
+    color: #ffffff !important;
+  }
+  
+  html.dark .text-gray-100,
+  body.dark .text-gray-100 {
+    color: #f3f4f6 !important;
+  }
+  
+  html.dark .text-gray-200,
+  body.dark .text-gray-200 {
+    color: #e5e7eb !important;
+  }
+  
+  html.dark .text-gray-300,
+  body.dark .text-gray-300 {
+    color: #d1d5db !important;
+  }
+  
+  html.dark .text-gray-400,
+  body.dark .text-gray-400 {
+    color: #9ca3af !important;
+  }
+  
+  /* Background fixes */
+  html:not(.dark) .bg-white,
+  html.light .bg-white {
+    background-color: #ffffff !important;
+  }
+  
+  html.dark .bg-charcoal-900,
+  html.dark .bg-gray-900,
+  body.dark .bg-charcoal-900,
+  body.dark .bg-gray-900 {
+    background-color: #111827 !important;
+  }
+  
+  html.dark .bg-charcoal-800,
+  html.dark .bg-gray-800,
+  body.dark .bg-charcoal-800,
+  body.dark .bg-gray-800 {
+    background-color: #1f2937 !important;
+  }
+}
+
 :root {
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-glow: 0 0 20px rgba(14, 165, 233, 0.3);
-  --text-primary: #111827;
-  --text-secondary: #374151;
-  --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
-}
-
-.dark {
-  --text-primary: #f9fafb;
-  --text-secondary: #d1d5db;
-  --bg-primary: #111827;
-  --bg-secondary: #1f2937;
 }
 
 html {
@@ -28,54 +125,13 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Light mode base styles */
-body {
   background-color: #ffffff;
-  color: #111827;
+  color: #1f2937;
 }
 
-/* Dark mode styles */
 .dark body {
-  background-color: #111827;
-  color: #f9fafb;
-}
-
-/* Force text colors in light mode */
-.light *:not(.dark *) {
-  --tw-text-opacity: 1;
-}
-
-.light .text-charcoal-900,
-.light .text-gray-900 {
-  color: rgb(17 24 39 / var(--tw-text-opacity)) !important;
-}
-
-.light .text-charcoal-800,
-.light .text-gray-800 {
-  color: rgb(31 41 55 / var(--tw-text-opacity)) !important;
-}
-
-.light .text-charcoal-700,
-.light .text-gray-700 {
-  color: rgb(55 65 81 / var(--tw-text-opacity)) !important;
-}
-
-.light .text-charcoal-600,
-.light .text-gray-600 {
-  color: rgb(75 85 99 / var(--tw-text-opacity)) !important;
-}
-
-.light .text-charcoal-500,
-.light .text-gray-500 {
-  color: rgb(107 114 128 / var(--tw-text-opacity)) !important;
-}
-
-/* Dark mode text colors */
-.dark .text-white {
-  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 .font-one {
@@ -139,17 +195,17 @@ body {
     @apply bg-gradient-to-r from-gray-400 to-gray-600;
   }
 
-  /* Consistent text colors */
+  /* Text color utilities that work with theme switching */
   .text-primary {
-    color: var(--text-primary) !important;
+    @apply text-gray-900 dark:text-white;
   }
 
   .text-secondary {
-    color: var(--text-secondary) !important;
+    @apply text-gray-600 dark:text-gray-400;
   }
 
   .text-muted {
-    @apply text-gray-500 dark:text-gray-400;
+    @apply text-gray-500 dark:text-gray-500;
   }
 
   .border-primary {
@@ -165,7 +221,7 @@ body {
   }
 }
 
-/* Utilities */
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -212,6 +268,30 @@ body {
     @apply text-3xl sm:text-4xl lg:text-5xl;
   }
 }
+
+@media (prefers-color-scheme: light) {
+  html:not(.dark) {
+    color-scheme: light;
+  }
+  
+  html:not(.dark) body {
+    color: #111827 !important;
+    background-color: #ffffff !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html.dark {
+    color-scheme: dark;
+  }
+  
+  html.dark body {
+    color: #f9fafb !important;
+    background-color: #111827 !important;
+  }
+}
+
+
 
 /* Animations */
 @keyframes fadeInUp {
