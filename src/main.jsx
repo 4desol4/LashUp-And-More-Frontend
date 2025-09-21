@@ -8,8 +8,6 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { CartProvider } from "@/context/CartContext";
 import "@/styles/globals.css";
 
-import themeService from "@/services/themeService";
-
 if (typeof window !== "undefined") {
  
   const initTheme = () => {
