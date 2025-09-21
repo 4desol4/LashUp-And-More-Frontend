@@ -1,4 +1,3 @@
-// vite.config.js - Updated for production theme fix
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
@@ -31,8 +30,8 @@ export default defineConfig({
   build: {
     outDir: "dist",
     sourcemap: true,
-    
-    cssCodeSplit: false, 
+
+    cssCodeSplit: false,
     minify: "esbuild",
     rollupOptions: {
       output: {
@@ -41,7 +40,7 @@ export default defineConfig({
           motion: ["framer-motion"],
           icons: ["react-icons"],
         },
-        // Ensure CSS loads before JS
+
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name.split(".");
           const extType = info[info.length - 1];
@@ -60,7 +59,8 @@ export default defineConfig({
   },
   css: {
     postcss: "./postcss.config.js",
- 
+
+    devSourcemap: true,
     preprocessorOptions: {
       css: {
         charset: false,
@@ -70,5 +70,12 @@ export default defineConfig({
 
   optimizeDeps: {
     exclude: [],
+ 
+    include: ["tailwindcss", "autoprefixer"],
+  },
+
+
+  esbuild: {
+    keepNames: true,
   },
 });

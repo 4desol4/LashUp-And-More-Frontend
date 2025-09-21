@@ -87,7 +87,67 @@
         background-color: #0ea5e9;
         color: white;
       }
+
+      .light body,
+      .light * {
+        --tw-text-opacity: 1;
+      }
+
+      .light .text-charcoal-900,
+      .light .text-gray-900 {
+        color: rgb(17 24 39) !important;
+      }
+
+      .dark .text-white {
+        color: rgb(255 255 255) !important;
+      }
     </style>
+
+   
+    <script>
+      (function () {
+        // Get theme before React initializes
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = savedTheme || (prefersDark ? "dark" : "light");
+
+        // Apply theme immediately
+        document.documentElement.classList.remove("light", "dark");
+        document.documentElement.classList.add(theme);
+        document.body.classList.remove("light", "dark");
+        document.body.classList.add(theme);
+
+        // Set CSS custom properties
+        if (theme === "dark") {
+          document.documentElement.style.setProperty("--text-color", "#ffffff");
+          document.documentElement.style.setProperty("--bg-color", "#000000");
+        } else {
+          document.documentElement.style.setProperty("--text-color", "#1f2937");
+          document.documentElement.style.setProperty("--bg-color", "#ffffff");
+        }
+
+        // Store theme
+        localStorage.setItem("theme", theme);
+
+        console.log("Theme initialized:", theme);
+      })();
+
+      // Production fix: Force repaint on load
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          const elements = document.querySelectorAll("*");
+          elements.forEach(function (el) {
+            if (el.style) {
+              el.style.display = "none";
+              el.offsetHeight; // Force reflow
+              el.style.display = "";
+            }
+          });
+        }, 100);
+      });
+    </script>
   </head>
   <body
     class="font-inter antialiased bg-white dark:bg-charcoal-900 text-charcoal-900 dark:text-white transition-colors duration-300"
@@ -118,7 +178,7 @@
     <script type="module" src="/src/main.jsx"></script>
 
     <script>
-      // Hide loading screen when page is fully loaded
+   
       window.addEventListener("load", () => {
         const loadingScreen = document.getElementById("loading-screen");
         loadingScreen.classList.add("fade-out");
@@ -127,16 +187,43 @@
         }, 500);
       });
 
-      // Theme detection
+      
       if (
         localStorage.theme === "dark" ||
         (!("theme" in localStorage) &&
           window.matchMedia("(prefers-color-scheme: dark)").matches)
       ) {
         document.documentElement.classList.add("dark");
+        document.documentElement.classList.remove("light");
       } else {
+        document.documentElement.classList.add("light");
         document.documentElement.classList.remove("dark");
       }
+
+    
+      const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+          if (mutation.attributeName === "class") {
+            const isDark = document.documentElement.classList.contains("dark");
+            const isLight =
+              document.documentElement.classList.contains("light");
+
+            if (isDark || isLight) {
+            
+              setTimeout(function () {
+                document.body.style.display = "none";
+                document.body.offsetHeight;
+                document.body.style.display = "";
+              }, 10);
+            }
+          }
+        });
+      });
+
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
     </script>
   </body>
 </html>

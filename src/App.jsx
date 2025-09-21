@@ -1,9 +1,10 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Layout from "@/components/layout/Layout";
 import LoadingSpinner from "@/components/ui/Spinner";
 import { useAuth } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const Home = lazy(() => import("@/pages/Home"));
 const Services = lazy(() => import("@/pages/Services"));
@@ -81,6 +82,27 @@ const PageTransition = ({ children }) => (
 );
 
 function App() {
+  const { theme } = useTheme();
+
+  // Force update on theme changes
+  useEffect(() => {
+    const forceThemeUpdate = () => {
+      // Force recalculation of all computed styles
+      const elements = document.querySelectorAll("*");
+      elements.forEach((element) => {
+        if (element.style) {
+          element.style.display = "none";
+          element.offsetHeight; // Trigger reflow
+          element.style.display = "";
+        }
+      });
+    };
+
+    // Run after theme change
+    const timeoutId = setTimeout(forceThemeUpdate, 50);
+    return () => clearTimeout(timeoutId);
+  }, [theme]);
+
   return (
     <div className="App">
       <Layout>
