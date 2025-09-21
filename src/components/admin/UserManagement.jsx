@@ -196,7 +196,7 @@ const UserManagement = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-primary-900 rounded-lg flex items-center justify-center">
             <HiUserGroup className="w-6 h-6 text-white" />
           </div>
           <div>
@@ -280,7 +280,7 @@ const UserManagement = () => {
               <Card className="p-6 hover:shadow-lg transition-all duration-200 cursor-pointer group">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-primary-900 rounded-full flex items-center justify-center text-white font-semibold">
                       {getInitials(user.name)}
                     </div>
                     <div>
