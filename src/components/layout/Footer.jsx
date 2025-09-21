@@ -1,26 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { HiPhone, HiMail, HiLocationMarker, HiHeart } from "react-icons/hi";
+import { HiPhone, HiMail, HiLocationMarker, HiClock } from "react-icons/hi";
 import { FaInstagram, FaFacebook, FaTwitter, FaTiktok } from "react-icons/fa";
 import { CONTACT_INFO } from "@/utils/constants";
+import { servicesAPI } from "@/services/services";
 
 const Footer = () => {
+  const [services, setServices] = useState([]);
   const currentYear = new Date().getFullYear();
 
+  useEffect(() => {
+    fetchServices();
+  }, []);
+
+  const fetchServices = async () => {
+    try {
+      const response = await servicesAPI.getAllServices();
+      setServices(response.data.slice(0, 6)); 
+    } catch (error) {
+      console.error("Failed to fetch services for footer:", error);
+      // setServices([
+      //   { id: "1", name: "Eyelash Extensions", slug: "extensions" },
+      //   { id: "2", name: "Lash Lamination", slug: "lamination" },
+      //   { id: "3", name: "Eyebrow Microblading", slug: "microblading" },
+      //   { id: "4", name: "Eyebrow Tinting", slug: "tinting" },
+      //   { id: "5", name: "Lash Removal", slug: "removal" },
+      //   { id: "6", name: "Lash Tinting", slug: "lash-tinting" },
+      // ]);
+    }
+  };
+
   const quickLinks = [
-    { name: "Services", href: "/services" },
+    { name: "About Us", href: "/about" },
     { name: "Gallery", href: "/gallery" },
     { name: "Shop", href: "/shop" },
-    { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
-  ];
-
-  const services = [
-    { name: "Eyelash Extensions", href: "/services#extensions" },
-    { name: "Lash Lamination", href: "/services#lamination" },
-    { name: "Lash Tinting", href: "/services#tinting" },
-    { name: "Lash Removal", href: "/services#removal" },
+    { name: "Dashboard", href: "/dashboard" },
   ];
 
   const socialLinks = [
@@ -51,23 +67,25 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-50 dark:bg-charcoal-800 border-t border-gray-200 dark:border-charcoal-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-gray-50 dark:bg-black border-t border-gray-200 dark:border-primary-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* Brand Section */}
-          <div className="space-y-4">
+          <div className="space-y-4 sm:col-span-2 lg:col-span-1">
             <Link to="/" className="inline-block">
-              <h3 className="text-3xl font-four font-bold text-gradient">
+              <h3 className="text-2xl sm:text-3xl font-four font-bold text-gradient">
                 LashUpAndMore
               </h3>
             </Link>
-            <p className="text-gray-600 font-three dark:text-gray-400 leading-relaxed">
-              Professional eyelash services to make you look and feel beautiful.
-              Transform your natural beauty with our expert lash artists.
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed font-three">
+              Professional eyelash and eyebrow services to make you look and
+              feel beautiful. Transform your natural beauty with our expert
+              artists.
             </p>
 
             {/* Social Links */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-3 sm:space-x-4">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -76,11 +94,12 @@ const Footer = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`p-2 rounded-full bg-white dark:bg-charcoal-700 text-gray-600 dark:text-gray-400 ${social.color} transition-all duration-200 shadow-sm hover:shadow-md`}
+                    className={`p-2 rounded-full bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 ${social.color} transition-all duration-200 shadow-sm hover:shadow-md`}
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
+                    aria-label={social.name}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </motion.a>
                 );
               })}
@@ -89,7 +108,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-lg  font-one text-gray-900 dark:text-white">
+            <h4 className="text-base sm:text-lg font-one text-gray-900 dark:text-white">
               Quick Links
             </h4>
             <ul className="space-y-2">
@@ -97,7 +116,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-gray-600 font-three dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                    className="text-sm sm:text-base text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 font-three"
                   >
                     {link.name}
                   </Link>
@@ -108,15 +127,15 @@ const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4">
-            <h4 className="text-lg font-one text-gray-900 dark:text-white">
-              Services
+            <h4 className="text-base sm:text-lg font-one text-gray-900 dark:text-white">
+              Our Services
             </h4>
             <ul className="space-y-2">
               {services.map((service) => (
-                <li key={service.name}>
+                <li key={service.id}>
                   <Link
-                    to={service.href}
-                    className="text-gray-600 font-three dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                    to={`/services#${service.slug || service.id}`}
+                    className="text-sm sm:text-base text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200 font-three"
                   >
                     {service.name}
                   </Link>
@@ -127,32 +146,30 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="text-lg font-one text-gray-900 dark:text-white">
+            <h4 className="text-base sm:text-lg font-one text-gray-900 dark:text-white">
               Contact Info
             </h4>
-            <div className="space-y-3 font-three font-semibold">
+            <div className="space-y-3 font-three">
               <div className="flex items-start space-x-3">
-                <HiLocationMarker className="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" />
-                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                <HiLocationMarker className="w-4 h-4 sm:w-5 sm:h-5 text-primary-600 mt-0.5 flex-shrink-0" />
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                   {CONTACT_INFO.address}
                 </p>
               </div>
-
               <div className="flex items-center space-x-3">
-                <HiPhone className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                <HiPhone className="w-4 h-4 sm:w-5 sm:h-5 text-primary-600 flex-shrink-0" />
                 <a
                   href={`tel:${CONTACT_INFO.phone}`}
-                  className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm"
+                  className="text-sm sm:text-base text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 >
                   {CONTACT_INFO.phone}
                 </a>
               </div>
-
               <div className="flex items-center space-x-3">
-                <HiMail className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                <HiMail className="w-4 h-4 sm:w-5 sm:h-5 text-primary-600 flex-shrink-0" />
                 <a
                   href={`mailto:${CONTACT_INFO.email}`}
-                  className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm"
+                  className="text-sm sm:text-base text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 >
                   {CONTACT_INFO.email}
                 </a>
@@ -161,10 +178,10 @@ const Footer = () => {
 
             {/* Hours */}
             <div className="pt-2">
-              <h5 className="text-sm  font-one text-gray-900 dark:text-white mb-2">
+              <h5 className="text-sm sm:text-base font-one text-gray-900 dark:text-white mb-2">
                 Business Hours
               </h5>
-              <div className="text-sm font-three text-gray-600 dark:text-gray-400 space-y-1">
+              <div className="text-xs sm:text-sm font-three text-gray-600 dark:text-gray-400 space-y-1">
                 <p>Mon - Thu: {CONTACT_INFO.hours.monday}</p>
                 <p>Friday: {CONTACT_INFO.hours.friday}</p>
                 <p>Saturday: {CONTACT_INFO.hours.saturday}</p>
@@ -175,17 +192,24 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-charcoal-700">
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200 dark:border-primary-900">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-2 flex-col sm:flex-row text-base font-three text-gray-600 dark:text-gray-400">
-              <span>© {currentYear} LashUpAndMore. Made by</span>
+            <div className="flex items-center space-x-2 flex-col sm:flex-row text-sm sm:text-base font-three text-gray-600 dark:text-gray-400">
+              <span>&copy; {currentYear} LashUpAndMore. Made by</span>
               <span className="text-primary-600 font-bold">
-                <a href="https://github.com/4desol4">4desol4</a>
+                <a
+                  href="https://github.com/4desol4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-700 transition-colors"
+                >
+                  4desol4
+                </a>
               </span>
               <span>in Lagos, Nigeria</span>
             </div>
 
-            <div className="flex items-center space-x-6 text-base font-three">
+            <div className="flex items-center space-x-4 sm:space-x-6 text-sm sm:text-base font-three">
               <Link
                 to="/privacy"
                 className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
